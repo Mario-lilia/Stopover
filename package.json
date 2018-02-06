@@ -1,0 +1,19 @@
+{
+  "name": "stopover",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mario-lilia/Stopover.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mario-lilia/Stopover/issues"
+  },
+  "homepage": "https://github.com/Mario-lilia/Stopover#readme"
+}
