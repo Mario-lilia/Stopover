@@ -5,3 +5,6 @@ module.exports.signup = ((req, res, next) => {
 module.exports.login = ((req, res, next) => {
     res.render('auth/login')
 })
+module.exports.home = ((req, res, next) => {
+    res.render('home')
+})
