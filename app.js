@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 
 const auth = require('./routes/auth.routes')
-const index = require('./routes/index');
+const index = require('./routes/index.routes');
 //const users = require('./routes/users');
 
 const app = express();
