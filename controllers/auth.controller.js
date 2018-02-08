@@ -44,6 +44,7 @@ if (!name || !email || !password) {
        user.save()
          .then(() =>{
 
+
            res.redirect('/auth/login');
          })
          .catch(error => {
