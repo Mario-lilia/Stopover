@@ -5,6 +5,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+require('./configs/db.configs');
 
 const index = require('./routes/index.routes');
 const auth = require('./routes/auth.routes');
