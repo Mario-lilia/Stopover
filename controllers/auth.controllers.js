@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../models/users.models');
-//const passport = require('passport');
+const passport = require('passport');
 
 
 module.exports.login =(req, res, next) => {
@@ -63,7 +63,7 @@ module.exports.doLogin =(req, res, next) => {
             }
         })
     }
-  /*  else{
+    else{
         passport.authenticate('local-auth', (error, user, validation) => {
             if (error) {
                 next(error);
@@ -79,7 +79,7 @@ module.exports.doLogin =(req, res, next) => {
                 });
             }
         })(req, res, next);
-    }*/
+    }
     }
     
     
