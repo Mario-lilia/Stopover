@@ -16,3 +16,14 @@ module.exports.doSignup =(req, res, next) => {
         })
     }
 }
+module.exports.doLogin =(req, res, next) => {
+    let {email, password} = req.body;
+    if(!email || !password) {
+        res.render('auth/login', {
+            error : {
+                email: email ? '' : "Email is required",
+                password: password ? '' : "Password is required"
+            }
+        })
+    }
+}
