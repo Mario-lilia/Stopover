@@ -4,12 +4,12 @@ const authController = require('../controllers/auth.controllers');
 const secure = require('../configs/passport.configs');
 
 /* GET home page. */
-router.get('/login', authController.login);
-router.get('/signup', authController.signup);
+router.get('/login', secure.nonAuthenticated, authController.login);
+router.get('/signup',secure.nonAuthenticated, authController.signup);
 
-router.post('/signup', authController.doSignup);
-router.post('/login', authController.doLogin);
-
+router.post('/signup', secure.nonAuthenticated, authController.doSignup);
+router.post('/login', secure.nonAuthenticated,authController.doLogin);
+router.get('/logout',secure.isAuthenticated, authController.logout);
 
 
 module.exports = router;

@@ -82,6 +82,12 @@ module.exports.doLogin =(req, res, next) => {
     }
     }
     
+    module.exports.logout = (req, res, next) => {
+        //res.send("hola")
+       req.logout();
+       res.redirect('/auth/login');
+   }
+
     
     
 
