@@ -12,4 +12,5 @@ router.post('/login', secure.nonAuthenticated,authController.doLogin);
 router.get('/logout',secure.isAuthenticated, authController.logout);
 
 
+
 module.exports = router;

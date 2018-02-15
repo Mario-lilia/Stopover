@@ -5,5 +5,7 @@ const secure = require('../configs/passport.configs');
 
 
 router.get('/:id',secure.isAuthenticated, usersController.profile);
-
+router.get('/:id/update',secure.isAuthenticated, usersController.update);
 module.exports = router;
+
+

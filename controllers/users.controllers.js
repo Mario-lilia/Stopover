@@ -6,3 +6,10 @@ module.exports.profile = (req, res, next) => {
       
   
   };
+
+  module.exports.update = (req, res, next) => {
+   
+    res.render('users/update');
+  
+
+};
