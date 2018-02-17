@@ -81,6 +81,22 @@ module.exports.doLogin =(req, res, next) => {
         })(req, res, next);
     }
     }
+
+    module.exports.loginWithProviderCallback = (req, res, next) => {
+        passport.authenticate('google-auth', (error, user) => {
+            if(error) {
+                next(error);
+            } else {
+                req.login(user, (error) => {
+                    if (error) {
+                        next(error);
+                    } else {
+                        res.redirect('/users/profile');
+                    }
+                });
+            }
+        })(req, res, next);
+    }
     
     module.exports.logout = (req, res, next) => {
         //res.send("hola")

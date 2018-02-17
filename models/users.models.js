@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
+
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -11,14 +13,26 @@ const userSchema = new mongoose.Schema({
         type: String,
         lowercase: true,
         required: [true, 'Email is required'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
         unique: true
     },
+
+    social: {
+        googleId: String
+    },
+    
     password: {
         type: String,
         required: [true, 'User needs a password']
     },
-    
+    imgUrl: {
+        type: String,
+        default: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+      },
+    country: {
+        type: String,
+        required: false
+    } 
+
 }, { timestamps: true });
 
 userSchema.pre('save', function (next) {
@@ -41,6 +55,9 @@ userSchema.pre('save', function (next) {
 userSchema.methods.checkPassword = function (password) {
     return bcrypt.compare(password, this.password);
 }
+
+
+
 
 
 const User = mongoose.model('User', userSchema);

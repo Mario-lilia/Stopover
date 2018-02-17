@@ -1,5 +1,5 @@
 
-    <form class="col-xs-12 col-sm-4 col-sm-offset-4"action="/auth/login" method="post">
+    <form class="col-xs-12 col-sm-4 col-sm-offset-4 formsLogo-loginSignup"action="/auth/login" method="post">
         <div class="form-group logo-loginSignup">
                 <img src="https://lh3.ggpht.com/o-UfAXzPTYATMDtS8Jv2fN4Hp_xX_8B94aPaQeeCvKedp4CMfib-eZl_CCalIBRX31o=w300" alt="">
             </div>
@@ -29,6 +29,12 @@
                       <label class="control-label"><%= error.password %></label>
                     <% } %>
                   </div>
+                </form>
           <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div class="form-group logo-loginSignup">
+        <form action="/auth/google" method="post">
+          <button>login with google</button>
+        </div>
         </form>
       
