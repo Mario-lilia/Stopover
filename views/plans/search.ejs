@@ -1,0 +1,74 @@
+<section class="container">
+  <div class="row">
+    <article id="art-map">
+      <div id="map">
+        
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<section>
+  <form class="form-horizontal" id="form-search">
+    <div class="form-group">
+      <label for="start" class="col-sm-2 control-label">Origen:</label>
+      <div class="col-sm-4">
+        <select id="start" class="form-control">
+          <option value="terminal1">Terminal 1</option>
+          <option value="terminal2">Terminal 2</option>
+          <option value="terminal3">Terminal 3</option>
+          <option value="terminal4">Terminal 4</option>
+        </select>
+      </div>
+      <label for="start" class="col-sm-2 control-label">Mode:</label>
+      <div class="col-sm-4">
+        <select id="travelMode" class="form-control">
+          <option value="driving">Driving</option>
+          <option value="bicycling">Bicycling</option>
+          <option value="transit">Transit</option>
+          <option value="walking">Walking</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="calendar" class="col-sm-2 control-label">Hora Inicio:</label>
+      <div class="input-append date form_datetime col-sm-4">
+        <input size="16" type="text" value="2018-02-19 09:00:38" class="form-control" id="initHour" readonly>
+        <span class="add-on">
+          <i class="icon-calendar"></i>
+        </span>
+      </div>
+      <label for="calendar" class="col-sm-2 control-label">Hora Fin:</label>
+      <div class="input-append date form_datetime col-sm-4">
+        <input size="16" type="text" value="2018-02-19 21:00:38" class="form-control" id="endHour" readonly>
+        <span class="add-on">
+          <i class="icon-calendar"></i>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="destination" class="col-sm-2 control-label">Destino:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="destination" value="madrid, es" readonly>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-4">
+        <button class="btn btn-info">SEARCH</button>
+      </div>
+    </div>
+    <div id="show-plans">
+
+    </div>
+  </form>
+</section>
+
+<script type="text/javascript">
+  $(".form_datetime").datetimepicker({
+    format: "yyyy-mm-dd hh:ii:ss",
+    autoclose: true,
+    todayBtn: true,
+    weekStart: 1
+  });
+</script>
