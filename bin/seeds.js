@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Plan = require('../models/plan.model');
 
-require('../config/db.config');
+require('../configs/db.configs');
 
 const plans = [{
   title: 'La Gatoteca, casa de acogida para gatos, con acceso libre',

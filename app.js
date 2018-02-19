@@ -18,6 +18,8 @@ require('./configs/passport.configs').setup(passport);
 const index = require('./routes/index.routes');
 const auth = require('./routes/auth.routes');
 const users = require('./routes/users.routes');
+const plans = require('./routes/plan.routes');
+
 
 const app = express();
 
@@ -55,12 +57,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-
-
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/users', users);
+app.use('/plans', plans);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

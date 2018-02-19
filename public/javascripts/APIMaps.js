@@ -28,8 +28,9 @@ this.labelIndex = 0;
   }
 
   getDoSearch(arriveHour, leftHour) {
-    var self = this;
-    axios.post(this.BASE_URL + '/doSearch', {
+    const self = this;
+    let idUser=$('#user-id').val();
+    axios.post(this.BASE_URL + `/plans/${idUser}/doSearch`, {
         arriveHour,
         leftHour
       })
