@@ -23,15 +23,18 @@ module.exports.update = (req, res, next) => {
 
 };
 module.exports.doUpdate = (req, res, next) => {
-  const user = new User(req.body)
-  const id = req.params.id
-  user._id = id
-  User.findByIdAndUpdate(id, user)
-     .then(user => {
-       res.redirect('/users/'+id);
-     })
-     .catch(error => next(error));
+let updateImage = {};
+if(req.file) {
+    updateImage['imgUrl'] = `./avatar/${req.file.filename}`;
+}
+let update = Object.assign({}, req.body, updateImage)
+const {_id} = res.locals.session;
 
+User.findByIdAndUpdate(_id, update)
+    .then(user => {
+    res.redirect(`/users/${_id}`);
+    })
+    .catch(error => next(error));
 };
 
 module.exports.doDelete = (req, res, next) => {

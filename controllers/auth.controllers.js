@@ -74,7 +74,7 @@ module.exports.doLogin =(req, res, next) => {
                     if (error) {
                         next(error);
                     } else {
-                        res.redirect('/users/profile');
+                        res.redirect(`/users/${_id}`);
                     }
                 });
             }
