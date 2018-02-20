@@ -28,7 +28,7 @@ class APIMaps {
     const self = this;
     let idUser = $('#user-id').val();
     this.deleteMarkers();
-    axios.post(this.BASE_URL + `/plans/doSearch/${idUser}`, {
+    axios.post(this.BASE_URL + `/users/${idUser}/plans/doSearch`, {
         arriveHour,
         leftHour
       })

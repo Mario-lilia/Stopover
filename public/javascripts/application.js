@@ -32,7 +32,7 @@ $(document).ready(() => {
     }
     // console.log(arriveHour.getHours());
     // console.log(leftHour.getHours());
-    changeFormWhenClickSearchButton();
+    // changeFormWhenClickSearchButton();
     if (arriveHour > leftHour) {
       alert("You dont have enough time to use that travel mode");
     } else {

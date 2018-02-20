@@ -2,14 +2,15 @@ const Plan = require('../models/plan.model');
 const mongoose = require('mongoose');
 
 module.exports.index = (req, res, next) => {
-  const idParamsUser = req.params.idUser;
-  const idUser = req.user._id;
+  const {
+    idUser
+  } = req.params;
+  const idParamsUser = req.user._id;
   if (String(idParamsUser) === String(idUser)) {
     Plan.find({
         createdBy: req.user._id
       })
       .then((plans) => {
-        console.log(plans);
         res.render('plans/index', {
           plans: plans
         });
@@ -19,9 +20,12 @@ module.exports.index = (req, res, next) => {
     res.redirect(`/users/${idUser}`);
   }
 };
+
 module.exports.create = (req, res, next) => {
-  const idParamsUser = req.params.idUser;
-  const idUser = req.user._id;
+  const {
+    idUser
+  } = req.params;
+  const idParamsUser = req.user._id;
   if (String(idParamsUser) === String(idUser)) {
     res.render('plans/new', {
       plan: new Plan()
@@ -29,8 +33,8 @@ module.exports.create = (req, res, next) => {
   } else {
     res.redirect(`/users/${idUser}`);
   }
-
 };
+
 module.exports.doCreate = (req, res, next) => {
   const plan = new Plan(req.body);
   plan.createdBy = req.user._id;
@@ -67,7 +71,7 @@ module.exports.doCreate = (req, res, next) => {
 
     plan.save()
       .then(() => {
-        res.redirect('/plans');
+        res.redirect(`/users/${req.user._id}/plans`);
       }).catch(error => {
         if (error instanceof mongoose.Error.ValidationError) {
           res.render('plans/new', {
@@ -83,8 +87,10 @@ module.exports.doCreate = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-  const idParamsUser = req.params.idUser;
-  const idUser = req.user._id;
+  const {
+    idUser
+  } = req.params;
+  const idParamsUser = req.user._id;
   if (String(idParamsUser) === String(idUser)) {
     const id = req.params.id;
     Plan.findById(id)
@@ -137,19 +143,21 @@ module.exports.doUpdate = (req, res, next) => {
     plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
     Plan.findByIdAndUpdate(id, plan)
       .then(plan => {
-        res.redirect('/plans');
+        res.redirect(`/users/${id}/plans`);
       })
       .catch(error => next(error));
   }
 };
 
 module.exports.search = (req, res, next) => {
-  const idParamsUser = req.params.idUser;
-  const idUser = req.user._id;
+  const {
+    idUser
+  } = req.params;
+  const idParamsUser = req.user._id;
   if (String(idParamsUser) === String(idUser)) {
     res.render('plans/search')
   } else {
-    res.redirect(`/users/${idUser}`);
+    res.redirect(`/users/${id}`);
   }
 }
 
@@ -164,10 +172,6 @@ module.exports.doSearch = (req, res, next) => {
   const diffDays = (leftHourDate.getTime() - arriveHourDate.getTime()) / (24 * 60 * 60 * 1000);
   let horaLlegada = arriveHourDate.getHours();
   let horaSalida = leftHourDate.getHours();
-  // console.log("diffDays = " + diffDays);
-  // console.log("horaLlegada = " + horaLlegada);
-  // console.log("horaSalida = " + horaSalida);
-  // console.log("arriveHourDate.getUTCDay() = " + arriveHourDate.getUTCDay());
   if ((diffDays >= 0) && (diffDays <= 1)) {
     if (horaLlegada < horaSalida) {
       //Same day
@@ -192,33 +196,28 @@ module.exports.doSearch = (req, res, next) => {
         })
         .$where('this.startTime < this.endTime')
         .then((plans) => {
-          console.log(plans);
-
           res.json({
             plans: plans
           });
         });
-
     }
   } else {
     res.json({
       error: "The stop over has to be the same day."
     });
-
   }
 };
 
 module.exports.doDelete = (req, res, next) => {
-  const id = req.params.id;
+  const {
+    id
+  } = req.params;
   Plan.findByIdAndRemove(id)
     .then(users => {
-      res.redirect('/plans/');
+      res.redirect(`/users/${id}/plans`);
     })
     .catch(error => next(error))
-
 };
-
-
 
 function getNameDayOfTheWeek(numberDay) {
   if (numberDay === 0) {

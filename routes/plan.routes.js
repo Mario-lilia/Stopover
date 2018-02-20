@@ -4,7 +4,7 @@ const planController = require('../controllers/plan.controller');
 const secure = require('../configs/passport.configs');
 
 /* GET plans listing. */
-router.get('/:idUser/plans/', secure.isAuthenticated, planController.index);
+router.get('/:idUser/plans', secure.isAuthenticated, planController.index);
 router.get('/:idUser/plans/new', secure.isAuthenticated, planController.create);
 router.post('/:idUser/plans/new', secure.isAuthenticated, planController.doCreate);
 
