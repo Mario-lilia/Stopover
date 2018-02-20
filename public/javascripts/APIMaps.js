@@ -8,7 +8,7 @@ class APIMaps {
     this.time = [];
     this.labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     this.labelIndex = 0;
-    this.markers=[];
+    this.markers = [];
   }
   startMap() {
     this.map = new google.maps.Map(
@@ -28,6 +28,8 @@ class APIMaps {
     const self = this;
     let idUser = $('#user-id').val();
     this.deleteMarkers();
+    this.directionsDisplay.setMap(null);
+    $('#info-map').empty();
     axios.post(this.BASE_URL + `/users/${idUser}/plans/doSearch`, {
         arriveHour,
         leftHour
@@ -36,9 +38,11 @@ class APIMaps {
         $('#show-plans').empty();
         if (response.data.plans) {
           console.log(response.data.plans);
+          let i = 0;
           response.data.plans.forEach(plan => {
             self.showMarkerInMap(plan.latPosition, plan.lngPosition, plan.title);
-            self.showPlan(plan);
+            self.showPlan(plan, i);
+            i++;
           });
         } else {
           alert(response.data.error);
@@ -51,7 +55,7 @@ class APIMaps {
   }
 
   showMarkerInMap(lat, lng, title) {
-     let marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position: {
         lat: lat,
         lng: lng
@@ -71,6 +75,7 @@ class APIMaps {
   }
 
   myRoute(origin, destination, travelMode, selectDay, waypoints) {
+    this.deleteMarkers()
     if (waypoints) {
       var directionRequest = {
         origin: origin,
@@ -119,7 +124,11 @@ class APIMaps {
     );
   }
 
-  showPlan(plan) {
+  showPlan(plan, i) {
+    let days = "";
+    plan.days.forEach(element => {
+      days = days + " | " + element;
+    });
     $('#show-plans').append(`
     <form class="form-horizontal" id="form-plans">
       <div class="form-group">
@@ -144,14 +153,47 @@ class APIMaps {
           <input type="text" class="form-control lng" value="${plan.lngPosition}" readonly>
         </div>
         <button class="btn btn-success btn-select-plan">Select plan</button>
+        <!-- Large modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg${i}">Info Plan</button>
+        
+      </div>
+      <div class="modal fade bs-example-modal-lg${i}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><strong>${plan.title}<strong></h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12"><p>${plan.description}</p></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-5">
+                  <img src="${plan.imgUrl}" width="100%" alt="">
+                </div>
+                <div class="col-sm-5">
+                  <p>TIMETABLE</p>
+                  <p>Days:</p>
+                  <p>${days}</p>
+                  <p>Open Hours:</p>
+                  <p>${plan.startTime} - ${plan.endTime}</p>      
+                  <p>PRICE: ${plan.price}€</p>            
+                </div>
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   `);
   }
 
   showInfoTravelInMap(travelMode) {
-    // $('#map').width('80%');
-    // $('#map').addClass('col-sm-9');
     $('#info-map').remove();
     $('#art-map').append(`
     <div id="info-map">

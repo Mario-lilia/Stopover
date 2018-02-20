@@ -21,6 +21,24 @@ module.exports.index = (req, res, next) => {
   }
 };
 
+module.exports.showall = (req, res, next) => {
+  const {
+    idUser
+  } = req.params;
+  const idParamsUser = req.user._id;
+  if (String(idParamsUser) === String(idUser)) {
+    Plan.find()
+      .then((plans) => {
+        res.render('plans/showAll', {
+          plans: plans
+        });
+      })
+      .catch(error => next(error));
+  } else {
+    res.redirect(`/users/${idUser}`);
+  }
+};
+
 module.exports.create = (req, res, next) => {
   const {
     idUser
