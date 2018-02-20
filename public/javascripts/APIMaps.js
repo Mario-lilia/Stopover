@@ -152,10 +152,10 @@ class APIMaps {
         <div class="col-sm-2">
           <input type="text" class="form-control lng" value="${plan.lngPosition}" readonly>
         </div>
-        <button class="btn btn-success btn-select-plan">Select plan</button>
+        <div>.</div>
+        <button class="btn btn-success btn-select-plan col-sm-2 col-sm-offset-1">Select plan</button>
         <!-- Large modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg${i}">Info Plan</button>
-        
+        <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-1" data-toggle="modal" data-target=".bs-example-modal-lg${i}">Info Plan</button>        
       </div>
       <div class="modal fade bs-example-modal-lg${i}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
