@@ -7,7 +7,8 @@ class APIMaps {
     this.directionsDisplay;
     this.time = [];
     this.labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-this.labelIndex = 0;
+    this.labelIndex = 0;
+    this.markers=[];
   }
   startMap() {
     this.map = new google.maps.Map(
@@ -21,28 +22,25 @@ this.labelIndex = 0;
     );
     this.directionsService = new google.maps.DirectionsService;
     this.directionsDisplay = new google.maps.DirectionsRenderer;
-
-    // this.myMarker(ironhackBCN.lat, ironhackBCN.lng);
-    // this.getPosition(this.map, this.currentMarker);
-    // this.myRoute();
   }
 
   getDoSearch(arriveHour, leftHour) {
     const self = this;
-    let idUser=$('#user-id').val();
-    axios.post(this.BASE_URL + `/plans/${idUser}/doSearch`, {
+    let idUser = $('#user-id').val();
+    this.deleteMarkers();
+    axios.post(this.BASE_URL + `/plans/doSearch/${idUser}`, {
         arriveHour,
         leftHour
       })
       .then(function (response) {
         $('#show-plans').empty();
-        if(response.data.plans){
-          // console.log(response.data.plans);
+        if (response.data.plans) {
+          console.log(response.data.plans);
           response.data.plans.forEach(plan => {
             self.showMarkerInMap(plan.latPosition, plan.lngPosition, plan.title);
             self.showPlan(plan);
           });
-        }else{
+        } else {
           alert(response.data.error);
         }
 
@@ -50,6 +48,26 @@ this.labelIndex = 0;
       .catch(function (error) {
         console.log(error);
       });
+  }
+
+  showMarkerInMap(lat, lng, title) {
+     let marker = new google.maps.Marker({
+      position: {
+        lat: lat,
+        lng: lng
+      },
+      map: this.map,
+      title: title,
+      //label: this.labels[this.labelIndex++ % this.labels.length],
+    });
+    this.markers.push(marker);
+    return marker;
+  }
+  deleteMarkers() {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(null);
+    }
+    this.markers = [];
   }
 
   myRoute(origin, destination, travelMode, selectDay, waypoints) {
@@ -67,7 +85,6 @@ this.labelIndex = 0;
       var directionRequest = {
         origin: origin,
         destination: destination,
-        // waypoints: waypoint,
         travelMode: travelMode,
         transitOptions: {
           departureTime: new Date(selectDay)
@@ -80,18 +97,14 @@ this.labelIndex = 0;
       (response, status) => {
         if (status === 'OK') {
           // everything is ok
-          // debugger
           this.directionsDisplay.setDirections(response);
           this.showTimeAndDistance(response);
           console.log(response);
-
           if (travelMode !== "DRIVING") {
             (this.time.length) > 1 ? this.time = [] : "";
             this.time.push(response.routes[0].legs[0].duration.text);
-            // debugger
           } else {
-            // this.time.push(response.routes[0].legs[1].duration.text);
-            if((this.time.length) == 0){
+            if ((this.time.length) == 0) {
               this.time.push(response.routes[0].legs[0].duration.text);
               this.time.push(response.routes[0].legs[1].duration.text);
             }
@@ -106,47 +119,7 @@ this.labelIndex = 0;
     );
   }
 
-  showInfoTravelInMap(travelMode) {
-    // $('#map').width('80%');
-    // $('#map').addClass('col-sm-9');
-    $('#info-map').remove();
-    $('#art-map').append(`
-    <div id="info-map">
-    <strong>PLAN INFO:</strong>
-    Outward Journey: ${this.time[0]}
-    Return Journey: ${this.time[1]}
-    </div>`);
-  }
-
-  showTimeAndDistance(response) {
-    $('#show-Time-Duration').empty();
-    $('#show-Time-Duration').append(`
-    <label for="destination" class="col-sm-2 control-label">Distance</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="destination" value="${response.routes[0].legs[0].distance.text}" readonly>
-    </div>
-    <label for="destination" class="col-sm-2 control-label">Duration</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="destination" value="${response.routes[0].legs[0].duration.text}" readonly>
-    </div>`);
-  }
-
-
-
-  showMarkerInMap(lat, lng, title) {
-    return new google.maps.Marker({
-      position: {
-        lat: lat,
-        lng: lng
-      },
-      map: this.map,
-      title: title,
-      label: this.labels[this.labelIndex++ % this.labels.length],
-    });
-  }
-
   showPlan(plan) {
-
     $('#show-plans').append(`
     <form class="form-horizontal" id="form-plans">
       <div class="form-group">
@@ -176,7 +149,30 @@ this.labelIndex = 0;
   `);
   }
 
+  showInfoTravelInMap(travelMode) {
+    // $('#map').width('80%');
+    // $('#map').addClass('col-sm-9');
+    $('#info-map').remove();
+    $('#art-map').append(`
+    <div id="info-map">
+    <strong>PLAN INFO:</strong>
+    Outward Journey: ${this.time[0]}
+    Return Journey: ${this.time[1]}
+    </div>`);
+  }
 
+  showTimeAndDistance(response) {
+    $('#show-Time-Duration').empty();
+    $('#show-Time-Duration').append(`
+    <label for="destination" class="col-sm-2 control-label">Distance</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="destination" value="${response.routes[0].legs[0].distance.text}" readonly>
+    </div>
+    <label for="destination" class="col-sm-2 control-label">Duration</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="destination" value="${response.routes[0].legs[0].duration.text}" readonly>
+    </div>`);
+  }
 
 
 
@@ -194,15 +190,4 @@ this.labelIndex = 0;
   //   });
   // }
 
-  // myMarker(lat, lng) {
-  //   (this.currentMarker) ? this.currentMarker.setMap(null): "";
-  //   this.currentMarker = new google.maps.Marker({
-  //     position: {
-  //       lat: lat,
-  //       lng: lng
-  //     },
-  //     map: this.map,
-  //     title: "I'm here"
-  //   });
-  // };
 }

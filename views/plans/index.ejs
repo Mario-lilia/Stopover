@@ -2,8 +2,8 @@
     <form class="form-horizontal">
       <div class="form-group" id="plans">
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-          <h3>All Plans:</h3>
-          <a href="/plans/new" class="btn btn-primary">Create a new plan</a>
+          <h3>All Plans for <a href="/users/<%=session._id%>"><strong>@<%=session.email%></strong></a>:</h3>
+          <a href="/users/<%=session._id%>/plans/new" class="btn btn-primary">Create a new plan</a>
           <% if (typeof(plans) != 'undefined') { %>
                 <% plans.forEach(plan => {%>
                     <div class="panel panel-default">
@@ -12,7 +12,7 @@
                             <p><%= plan.title %></p>
                             <img src="<%=plan.imgUrl%>" alt="" height="100px">
                             <p class="text-right">
-                                <a href="/plans/<%= plan._id %>" class="btn btn-success text-right ">Edit</a>
+                                <a href="/users/<%=session._id%>/plans/<%= plan._id %>/update" class="btn btn-success text-right ">Edit</a>
                             </p>
                         </div>
                     </div>

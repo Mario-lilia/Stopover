@@ -2,25 +2,38 @@ const Plan = require('../models/plan.model');
 const mongoose = require('mongoose');
 
 module.exports.index = (req, res, next) => {
-  console.log(req.user._id);
-  //ID CREATOR
-  Plan.find({createdBy:req.user._id})
-    .then((plans) => {
-      console.log(plans);
-      res.render('plans/index', {
-        plans:plans
-      });
-    })
-    .catch(error => next(error));
+  const idParamsUser = req.params.idUser;
+  const idUser = req.user._id;
+  if (String(idParamsUser) === String(idUser)) {
+    Plan.find({
+        createdBy: req.user._id
+      })
+      .then((plans) => {
+        console.log(plans);
+        res.render('plans/index', {
+          plans: plans
+        });
+      })
+      .catch(error => next(error));
+  } else {
+    res.redirect(`/users/${idUser}`);
+  }
 };
 module.exports.create = (req, res, next) => {
-  res.render('plans/new', {
-    plan: new Plan()
-  });
+  const idParamsUser = req.params.idUser;
+  const idUser = req.user._id;
+  if (String(idParamsUser) === String(idUser)) {
+    res.render('plans/new', {
+      plan: new Plan()
+    });
+  } else {
+    res.redirect(`/users/${idUser}`);
+  }
+
 };
 module.exports.doCreate = (req, res, next) => {
   const plan = new Plan(req.body);
-  plan.createdBy=req.user._id;
+  plan.createdBy = req.user._id;
   (plan.weather === "sunny") ? plan.weather = true: false;
   if (!req.body.title || !req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.latPosition || !req.body.lngPosition) {
     const title = req.body.title ? '' : 'Title is required';
@@ -49,14 +62,9 @@ module.exports.doCreate = (req, res, next) => {
   } else {
     plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
     plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
+    plan.latPosition = Number(req.body.latPosition);
+    plan.lngPosition = Number(req.body.lngPosition);
 
-    plan.latPosition=Number(req.body.latPosition);
-    plan.lngPosition=Number(req.body.lngPosition);
-    console.log(plan.endTime);
-    console.log(plan.startTime);
-    console.log(plan);
-    
-    
     plan.save()
       .then(() => {
         res.redirect('/plans');
@@ -72,18 +80,23 @@ module.exports.doCreate = (req, res, next) => {
       })
       .catch(error => next(error));
   }
-
 };
 
 module.exports.update = (req, res, next) => {
-  const id = req.params.id;
-  Plan.findById(id)
-    .then((plan) => {
-      res.render('plans/new', {
-        plan
-      });
-    })
-    .catch(error => next(error));
+  const idParamsUser = req.params.idUser;
+  const idUser = req.user._id;
+  if (String(idParamsUser) === String(idUser)) {
+    const id = req.params.id;
+    Plan.findById(id)
+      .then((plan) => {
+        res.render('plans/new', {
+          plan
+        });
+      })
+      .catch(error => next(error));
+  } else {
+    res.redirect(`/users/${idUser}`);
+  }
 };
 
 
@@ -91,7 +104,6 @@ module.exports.doUpdate = (req, res, next) => {
   const plan = new Plan(req.body);
   const id = req.params.id;
   plan._id = id;
-  // plan.createdBy=req.user._id;
   (plan.weather === "sunny") ? plan.weather = true: false;
 
   if (!req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.latPosition || !req.body.lngPosition) {
@@ -105,12 +117,6 @@ module.exports.doUpdate = (req, res, next) => {
     const lngPosition = req.body.lngPosition ? '' : 'End position is required';
     Plan.findById(id)
       .then((planB) => {
-        console.log("AAAAAAAAAAAA");
-        console.log("AAAAAAAAAAAA");
-        console.log("AAAAAAAAAAAA");
-        console.log("AAAAAAAAAAAA");
-        console.log("AAAAAAAAAAAA");
-        
         res.render('plans/new', {
           error: {
             description,
@@ -127,9 +133,6 @@ module.exports.doUpdate = (req, res, next) => {
       })
       .catch(error => next(error));
   } else {
-    // plan.latPosition=Number(req.body.latPosition);
-    // plan.lngPosition=Number(req.body.lngPosition);
-
     plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
     plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
     Plan.findByIdAndUpdate(id, plan)
@@ -141,15 +144,19 @@ module.exports.doUpdate = (req, res, next) => {
 };
 
 module.exports.search = (req, res, next) => {
-res.render('plans/search')
-
+  const idParamsUser = req.params.idUser;
+  const idUser = req.user._id;
+  if (String(idParamsUser) === String(idUser)) {
+    res.render('plans/search')
+  } else {
+    res.redirect(`/users/${idUser}`);
+  }
 }
-
 
 module.exports.doSearch = (req, res, next) => {
   const {
-      arriveHour,
-      leftHour
+    arriveHour,
+    leftHour
   } = req.body;
 
   arriveHourDate = new Date(arriveHour);
@@ -162,61 +169,77 @@ module.exports.doSearch = (req, res, next) => {
   // console.log("horaSalida = " + horaSalida);
   // console.log("arriveHourDate.getUTCDay() = " + arriveHourDate.getUTCDay());
   if ((diffDays >= 0) && (diffDays <= 1)) {
-      if (horaLlegada < horaSalida) {
-          //Same day
-          let dayOfWeek = getNameDayOfTheWeek(arriveHourDate.getUTCDay());
-          console.log(dayOfWeek);
-          Plan.find({
-                  $and: [{
-                      days: {
-                          $in: [dayOfWeek]
-                      }
-                  },{
-                      startTime:{
-                          $gte:horaLlegada,$lte:horaSalida
-                      }
-                  },{
-                      endTime:{
-                          $gte:horaLlegada,$lte:horaSalida
-                      }
-                  }]
-              })
-              .$where('this.startTime < this.endTime')
-              .then((plans) => {
-                  console.log(plans);   
-                                   
-                  res.json({
-                      plans: plans
-                  });
-              });
+    if (horaLlegada < horaSalida) {
+      //Same day
+      let dayOfWeek = getNameDayOfTheWeek(arriveHourDate.getUTCDay());
+      console.log(dayOfWeek);
+      Plan.find({
+          $and: [{
+            days: {
+              $in: [dayOfWeek]
+            }
+          }, {
+            startTime: {
+              $gte: horaLlegada,
+              $lte: horaSalida
+            }
+          }, {
+            endTime: {
+              $gte: horaLlegada,
+              $lte: horaSalida
+            }
+          }]
+        })
+        .$where('this.startTime < this.endTime')
+        .then((plans) => {
+          console.log(plans);
 
-      } 
-  } else{
-      res.json({error:"The stop over has to be the same day."});
+          res.json({
+            plans: plans
+          });
+        });
+
+    }
+  } else {
+    res.json({
+      error: "The stop over has to be the same day."
+    });
 
   }
 };
 
+module.exports.doDelete = (req, res, next) => {
+  const id = req.params.id;
+  Plan.findByIdAndRemove(id)
+    .then(users => {
+      res.redirect('/plans/');
+    })
+    .catch(error => next(error))
+
+};
+
+
+
 function getNameDayOfTheWeek(numberDay) {
   if (numberDay === 0) {
-      return "Sunday";
+    return "Sunday";
   }
   if (numberDay === 1) {
-      return "Monday";
+    return "Monday";
   }
   if (numberDay === 2) {
-      return "Tuesday";
+    return "Tuesday";
   }
   if (numberDay === 3) {
-      return "Wednesday";
+    return "Wednesday";
   }
   if (numberDay === 4) {
-      return "Thursday";
+    return "Thursday";
   }
   if (numberDay === 5) {
-      return "Friday";
+    return "Friday";
   }
   if (numberDay === 6) {
-      return "Saturday";
+    return "Saturday";
   }
 }

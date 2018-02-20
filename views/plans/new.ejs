@@ -13,10 +13,10 @@
         </div>
         <% if (plan.isNew) { %>
           <h2>Creating a new plan</h2>
-          <form action="/plans/new" method="post">
+          <form action="/users/<%=session._id%>/plans/new" method="post">
         <% } else { %>
           <h2>Updating a new plan</h2>
-          <form action="/plans/<%= plan._id %>" method="post">
+          <form action="/users/<%=session._id%>/plans/<%= plan._id %>/update" method="post">
         <% } %>
           <div class="form-group <%= typeof error != 'undefined' && error.title ? 'has-error' : '' %>">
             <label class="control-label">Title of the plan:</label>
@@ -205,6 +205,21 @@
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <%if (!plan.isNew){%>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+            <form action="/plans/<%= plan._id %>/delete" method="post">
+              <button type="submit" class="btn btn-block btn-danger">DELETE!!</button>
+              <label class="control-label">Once you deleted it, you cannot get it back!</label>
+            </form>
+          </div>
+        </div>
+      </div>
+      <%}%>
+
   <script>
     $('.clockpicker').clockpicker();
     var i = 0;
