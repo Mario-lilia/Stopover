@@ -1,0 +1,231 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      </div>
+      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+        <div class="page-header">
+          <h1>My plan:</h1>
+            <%if (plan.isNew){%>
+            <h4>Here you can create a plan</h4>
+            <%}else{%>
+            <h4>Here you can update your plan</h4>
+            <%}%>
+        </div>
+        <% if (plan.isNew) { %>
+          <h2>Creating a new plan</h2>
+          <form action="/users/<%=session._id%>/plans/new" method="post">
+        <% } else { %>
+          <h2>Updating a new plan</h2>
+          <form action="/users/<%=session._id%>/plans/<%= plan._id %>/update" method="post">
+        <% } %>
+          <div class="form-group <%= typeof error != 'undefined' && error.title ? 'has-error' : '' %>">
+            <label class="control-label">Title of the plan:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <%if (plan.isNew){%>
+                <input type="text" value="<%= typeof plan != 'undefined' && plan.title ? plan.title : '' %>" name="title" class="form-control" placeholder="Name">
+              <%}else{%>
+                <input type="text" value="<%= typeof plan != 'undefined' && plan.title ? plan.title : '' %>" name="titulo" class="form-control" placeholder="Name" readonly>
+              <%}%>
+            </div>
+            <% if (typeof(error) != 'undefined' && error.title) { %>
+              <label class="control-label">
+                <%= error.title %>
+              </label>
+              <% } %>
+          </div>
+          <div class="form-group <%= typeof error != 'undefined' && error.imgUrl ? 'has-error' : '' %>">
+            <label class="control-label">Paste here the URL link address:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <input type="text" value="<%= typeof plan != 'undefined' && plan.imgUrl ? plan.imgUrl : '' %>" id="inpImgUrl" name="imgUrl" class="form-control" placeholder="Image URL">
+            </div>
+            <% if (typeof(error) != 'undefined' && error.imgUrl) { %>
+              <label class="control-label">
+                <%= error.imgUrl %>
+              </label>
+              <% } %>
+          </div>
+          <img src="" id="imgUrl" alt="" height="100px">
+          <br>
+          <div class="form-group <%= typeof error != 'undefined' && error.description ? 'has-error' : '' %>">
+            <label class="control-label">Description:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <textarea type="text" cols="30" rows="10"name="description" class="form-control" placeholder="Description"><%= typeof plan != 'undefined' && plan.description ? plan.description : '' %></textarea>
+            </div>
+            <% if (typeof(error) != 'undefined' && error.description) { %>
+              <label class="control-label">
+                <%= error.description %>
+              </label>
+              <% } %>
+          </div>
+          <div class="form-group <%= typeof error != 'undefined' && error.weather ? 'has-error' : '' %>">
+            <label for="start" class="control-label">Weather:</label>
+            <div>
+              <select class="form-control" name="weather">
+                <option value="true">Sunny</option>
+                <option value="false">Rainy</option>
+              </select>
+            </div>
+            <% if (typeof(error) != 'undefined' && error.weather) { %>
+              <label class="control-label">
+                <%= error.weather %>
+              </label>
+              <% } %>
+          </div>
+          <div class="form-group <%= typeof error != 'undefined' && error.price ? 'has-error' : '' %>">
+            <label class="control-label">Price of the plan:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <input type="text" value="<%= typeof plan != 'undefined' && plan.price ? plan.price : '' %>" name="price" class="form-control" placeholder="Price">
+            </div>
+            <% if (typeof(error) != 'undefined' && error.price) { %>
+              <label class="control-label">
+                <%= error.price %>
+              </label>
+              <% } %>
+          </div>
+          
+          <div class="form-group <%= typeof error != 'undefined' && error.days ? 'has-error' : '' %>">
+            <label class="control-label">Days:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <div class="form-control" >
+                <label class="control-label">Monday:</label>
+                <input type="checkbox" name="days" value="Monday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Monday") > -1) ? 'checked' : '' %> />
+              </div>
+              <div class="form-control" >
+                <label class="control-label">Tuesday:</label>
+                <input type="checkbox" name="days" value="Tuesday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Tuesday") > -1) ? 'checked' : '' %> />
+              </div>
+              <div class="form-control" >
+                <label class="control-label">Wednesday:</label>
+                <input type="checkbox" name="days" value="Wednesday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Wednesday") > -1) ? 'checked' : '' %> />
+              </div>
+              <div class="form-control" >
+                <label class="control-label">Thursday:</label>
+                <input type="checkbox" name="days" value="Thursday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Thursday") > -1) ? 'checked' : '' %> />
+              </div>
+              <div class="form-control" >
+                <label class="control-label">Friday:</label>
+                <input type="checkbox" name="days" value="Friday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Friday") > -1) ? 'checked' : '' %> />
+              </div>
+              <div class="form-control" >
+                <label class="control-label">Saturday:</label>
+                <input type="checkbox" name="days" value="Saturday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Saturday") > -1) ? 'checked' : '' %> />
+              </div>
+              <div class="form-control" >
+                <label class="control-label">Sunday:</label>
+                <input type="checkbox" name="days" value="Sunday" <%= typeof plan != 'undefined' && (plan.days.indexOf("Sunday") > -1) ? 'checked' : '' %> />
+              </div>
+            </div>
+            <% if (typeof(error) != 'undefined' && error.days) { %>
+              <label class="control-label">
+                <%= error.days %>
+              </label>
+              <% } %>
+          </div>
+          <div class="form-group <%= typeof error != 'undefined' && error.startTime ? 'has-error' : '' %>">
+            <label class="control-label">Start time:</label>
+            <div class="input-group clockpicker">
+              <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-time"></span>
+              </span>
+              <input type="text" class="form-control" name="startTime" value="<%= typeof plan != 'undefined' && plan.startTime ? plan.startTime : '' %>:00"  placeholder="00:00" readonly>
+            </div>
+            <% if (typeof(error) != 'undefined' && error.startTime) { %>
+              <label class="control-label">
+                <%= error.startTime %>
+              </label>
+            <% } %>
+          </div>
+          
+          <div class="form-group <%= typeof error != 'undefined' && error.endTime ? 'has-error' : '' %>">
+            <label class="control-label">End time:</label>
+            <div class="input-group clockpicker">
+              <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-time"></span>
+              </span>
+              <input type="text" class="form-control" name="endTime" value="<%= typeof plan != 'undefined' && plan.endTime ? plan.endTime : '' %>:00"  placeholder="14:00" readonly>
+            </div>
+            <% if (typeof(error) != 'undefined' && error.endTime) { %>
+              <label class="control-label">
+                <%= error.endTime %>
+              </label>
+            <% } %>
+          </div>
+          <div class="form-group <%= typeof error != 'undefined' && error.latPosition ? 'has-error' : '' %>">
+            <label class="control-label">Start position:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <input type="text" value="<%= typeof plan != 'undefined' && plan.latPosition ? plan.latPosition : '' %>" name="latPosition" class="form-control" placeholder="Start Position {lat: 40.468686, lng: -3.569172}">
+            </div>
+            <% if (typeof(error) != 'undefined' && error.latPosition) { %>
+              <label class="control-label">
+                <%= error.latPosition %>
+              </label>
+            <% } %>
+          </div>
+          <div class="form-group <%= typeof error != 'undefined' && error.lngPosition ? 'has-error' : '' %>">
+            <label class="control-label">End position:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </span>
+              <input type="text" value="<%= typeof plan != 'undefined' && plan.lngPosition ? plan.lngPosition : '' %>" name="lngPosition" class="form-control" placeholder="End Position {lat: 40.468686, lng: -3.569172}">
+            </div>
+            <% if (typeof(error) != 'undefined' && error.lngPosition) { %>
+              <label class="control-label">
+                <%= error.lngPosition %>
+              </label>
+              <% } %>
+          </div>
+          <div class="form-actions">
+            <br>
+            <%if (plan.isNew){%>
+            <button type="submit" class="btn btn-block btn-primary">Create</button>
+            <%}else{%>
+            <button type="submit" class="btn btn-block btn-success">Update</button>
+            <%}%>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <%if (!plan.isNew){%>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+            <form action="/users/<%=session._id%>/plans/<%= plan._id %>/delete" method="post">
+              <button type="submit" class="btn btn-block btn-danger">DELETE!!</button>
+              <label class="control-label">Once you deleted it, you cannot get it back!</label>
+            </form>
+          </div>
+        </div>
+      </div>
+      <%}%>
+
+  <script>
+    $('.clockpicker').clockpicker();
+    var i = 0;
+    $("#inpImgUrl")
+      .change(function () {
+        $("#imgUrl").attr("src", $("#inpImgUrl").val())
+      })
+  </script>
+  

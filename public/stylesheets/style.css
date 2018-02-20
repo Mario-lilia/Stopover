@@ -1,7 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("https://image.freepik.com/foto-gratis/camino-blanco-y-negro-de-bosques_442-19321742.jpg");
+  /* background-image: url("https://image.freepik.com/foto-gratis/camino-blanco-y-negro-de-bosques_442-19321742.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -55,4 +55,14 @@ margin-top: 10px;
  height: 300px;
  background: lightgray;
  margin-bottom:  20px;
+  }
+  #form-plans{
+    margin-bottom: 40px;
+    background-color: beige;
+    padding: 20px;
+    border-radius: 25px;
+  }
+
+  .navbar-brand{
+    padding: 8px;
   }

@@ -1,0 +1,22 @@
+<section class="container">
+  <form class="form-horizontal">
+    <div class="form-group" id="plans">
+      <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <h3>All Plans</a>:</h3>
+        <% if (typeof(plans) != 'undefined') { %>
+              <% plans.forEach(plan => {%>
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          <p><a href="/users/<%=plan.createdBy%>"><strong>@<%=plan.createdBy%></strong></a> 
+                          <p><%= plan.title %></p>
+                          <img src="<%=plan.imgUrl%>" alt="" height="100px">
+                          <p class="text-right">
+                              
+                          </p>
+                      </div>
+                  </div>
+              <% }); %>
+          <% } %>
+      </div>
+    </div>
+  </form>
