@@ -6,25 +6,7 @@ function startMap() {
 }
 
 $(document).ready(() => {
-  $('#form-routes').on('submit', (event) => {
-    event.preventDefault();
-
-    const destination = {
-      lat: 40.4249622,
-      lng: -3.6935239
-    };
-    const numTerminal = $('#start').val();
-    const travelMode = $('#travelMode').val();
-    const selectDay = $('#calendar').val();
-    if (selectDay) {
-      mapsAPI.myRoute(terminalCoordinates(numTerminal), destination, travelMode.toUpperCase(), Date.parse(selectDay));
-    } else {
-      mapsAPI.myRoute(terminalCoordinates(numTerminal), destination, travelMode.toUpperCase());
-    }
-
-  });
-
-  //de la vista search
+   //de la vista search
   $('#form-search').on('submit', (event) => {
     event.preventDefault();
     // debugger
@@ -100,8 +82,13 @@ $(document).ready(() => {
     }, 20);
 
   });
-
+  
+  $( "#search-btn" ).click(function(event) {
+    event.preventDefault();
+    alert("hola");
+  });
 });
+
 
 
 

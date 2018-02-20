@@ -10,10 +10,7 @@ router.post('/new', secure.isAuthenticated, planController.doCreate);
 router.get('/:id', secure.isAuthenticated, planController.update);
 router.post('/:id', secure.isAuthenticated, planController.doUpdate);
 
-
-router.post('/:id/doSearch', secure.isAuthenticated, planController.doSearch);
-console.log("AAAAAAAAAAa");
-console.log("AAAAAAAAAAa");
-console.log("AAAAAAAAAAa");
+router.get('/search', secure.isAuthenticated, planController.search);
+// router.post('/:id/doSearch', secure.isAuthenticated, planController.doSearch);
 
 module.exports = router;

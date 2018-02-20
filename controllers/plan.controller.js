@@ -2,10 +2,13 @@ const Plan = require('../models/plan.model');
 const mongoose = require('mongoose');
 
 module.exports.index = (req, res, next) => {
-  Plan.find()
+  console.log(req.user._id);
+  //ID CREATOR
+  Plan.find({createdBy:req.user._id})
     .then((plans) => {
+      console.log(plans);
       res.render('plans/index', {
-        plans
+        plans:plans
       });
     })
     .catch(error => next(error));
@@ -17,8 +20,9 @@ module.exports.create = (req, res, next) => {
 };
 module.exports.doCreate = (req, res, next) => {
   const plan = new Plan(req.body);
+  plan.createdBy=req.user._id;
   (plan.weather === "sunny") ? plan.weather = true: false;
-  if (!req.body.title || !req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.startPosition || !req.body.endPosition) {
+  if (!req.body.title || !req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.latPosition || !req.body.lngPosition) {
     const title = req.body.title ? '' : 'Title is required';
     const description = req.body.description ? '' : 'description is required';
     const imgUrl = req.body.imgUrl ? '' : 'imgUrl is required';
@@ -26,8 +30,8 @@ module.exports.doCreate = (req, res, next) => {
     const days = req.body.days ? '' : 'Days is required';
     const startTime = req.body.startTime ? '' : 'Start time is required';
     const endTime = req.body.endTime ? '' : 'End Time is required';
-    const startPosition = req.body.startPosition ? '' : 'Start position is required';
-    const endPosition = req.body.endPosition ? '' : 'End position is required';
+    const latPosition = req.body.latPosition ? '' : 'Latitude position is required';
+    const lngPosition = req.body.lngPosition ? '' : 'Longitude position is required';
     res.render('plans/new', {
       error: {
         title,
@@ -37,12 +41,22 @@ module.exports.doCreate = (req, res, next) => {
         days,
         startTime,
         endTime,
-        startPosition,
-        endPosition
+        latPosition,
+        lngPosition
       },
       plan: plan
     });
   } else {
+    plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
+    plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
+
+    plan.latPosition=Number(req.body.latPosition);
+    plan.lngPosition=Number(req.body.lngPosition);
+    console.log(plan.endTime);
+    console.log(plan.startTime);
+    console.log(plan);
+    
+    
     plan.save()
       .then(() => {
         res.redirect('/plans');
@@ -77,19 +91,26 @@ module.exports.doUpdate = (req, res, next) => {
   const plan = new Plan(req.body);
   const id = req.params.id;
   plan._id = id;
+  // plan.createdBy=req.user._id;
   (plan.weather === "sunny") ? plan.weather = true: false;
 
-  if (!req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.startPosition || !req.body.endPosition) {
+  if (!req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.latPosition || !req.body.lngPosition) {
     const description = req.body.description ? '' : 'description is required';
     const imgUrl = req.body.imgUrl ? '' : 'imgUrl is required';
     const price = req.body.price ? '' : 'Price is required';
     const days = req.body.days ? '' : 'Days is required';
     const startTime = req.body.startTime ? '' : 'Start time is required';
     const endTime = req.body.endTime ? '' : 'End Time is required';
-    const startPosition = req.body.startPosition ? '' : 'Start position is required';
-    const endPosition = req.body.endPosition ? '' : 'End position is required';
+    const latPosition = req.body.latPosition ? '' : 'Start position is required';
+    const lngPosition = req.body.lngPosition ? '' : 'End position is required';
     Plan.findById(id)
       .then((planB) => {
+        console.log("AAAAAAAAAAAA");
+        console.log("AAAAAAAAAAAA");
+        console.log("AAAAAAAAAAAA");
+        console.log("AAAAAAAAAAAA");
+        console.log("AAAAAAAAAAAA");
+        
         res.render('plans/new', {
           error: {
             description,
@@ -98,14 +119,17 @@ module.exports.doUpdate = (req, res, next) => {
             days,
             startTime,
             endTime,
-            startPosition,
-            endPosition
+            latPosition,
+            lngPosition
           },
           plan: planB
         });
       })
       .catch(error => next(error));
   } else {
+    // plan.latPosition=Number(req.body.latPosition);
+    // plan.lngPosition=Number(req.body.lngPosition);
+
     plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
     plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
     Plan.findByIdAndUpdate(id, plan)
@@ -116,15 +140,13 @@ module.exports.doUpdate = (req, res, next) => {
   }
 };
 
-module.exports.doSearch = (req, res, next) => {
+module.exports.search = (req, res, next) => {
+res.render('plans/search')
 
-  console.log("BBBBBBB");
-  console.log("BBBBBBB");
-  console.log("BBBBBBB");
-  console.log("BBBBBBB");
-  console.log("BBBBBBB");
-  console.log("BBBBBBB");
-  
+}
+
+
+module.exports.doSearch = (req, res, next) => {
   const {
       arriveHour,
       leftHour
@@ -169,11 +191,6 @@ module.exports.doSearch = (req, res, next) => {
               });
 
       } 
-      // else {
-      //     //Two differents days
-      //     let dayOfWeek = getNameDayOfTheWeek(arriveHourDate.getUTCDay());
-      //     console.log(getNameDayOfTheWeek(arriveHourDate.getUTCDay()));
-      // }
   } else{
       res.json({error:"The stop over has to be the same day."});
 

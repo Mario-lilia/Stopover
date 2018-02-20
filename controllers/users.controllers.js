@@ -2,7 +2,7 @@ const User = require('../models/users.models')
 
 module.exports.profile = (req, res, next) => {
   
-      res.render('plans/search')
+      res.render('users/profile')
         
 
 };

@@ -15,11 +15,11 @@ const planSchema = new mongoose.Schema({
     type: String,
     default: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
   },
-  // createdBy: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: [true, 'Creator is required'],
-  //   ref: 'User'
-  // },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, 'Creator is required'],
+    ref: 'User'
+  },
 
   //true = sunny
   weather: {

@@ -44,7 +44,6 @@ this.labelIndex = 0;
           });
         }else{
           alert(response.data.error);
-          console.log(response);
         }
 
       })
