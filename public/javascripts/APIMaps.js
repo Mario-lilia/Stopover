@@ -103,7 +103,7 @@ class APIMaps {
       directionRequest,
       (response, status) => {
         if (status === 'OK') {
-          // everything is ok a
+          // everything is ok
           this.directionsDisplay.setDirections(response);
           this.showTimeAndDistance(response);
           if (travelMode !== "DRIVING") {
