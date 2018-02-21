@@ -57,6 +57,8 @@ passport.use('google-auth', new GoogleStrategy({
 }, authenticateOAuthUser));
 
 function authenticateOAuthUser(accessToken, refreshToken, profile, next) {
+    console.log(profile);
+    
     let provider = 'googleId'
     User.findOne({ [`social.googleId`]: profile.id })
         .then(user => {
@@ -65,7 +67,7 @@ function authenticateOAuthUser(accessToken, refreshToken, profile, next) {
             } else {
                 console.log(profile.emails[0].value);
                 const email = profile.emails ? profile.emails[0].value : null;
-                user = new User({
+                const newUser = new User({
                     name: email || DEFAULT_USERNAME,
                     email: email,
                     password: Math.random().toString(36).slice(-8), // FIXME: insecure, use secure random seed
@@ -74,11 +76,11 @@ function authenticateOAuthUser(accessToken, refreshToken, profile, next) {
                     }
                 });
                 
-                user.save()
-                    .then(() => {
-                        console.log(user);
+                newUser.save()
+                    .then((userSaved) => {
+                        console.log(userSaved);
                         
-                        next(null, user);
+                        next(null, userSaved);
                     })
                     .catch(error => next(error));
             }
