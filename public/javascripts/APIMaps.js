@@ -27,9 +27,9 @@ class APIMaps {
   getDoSearch(arriveHour, leftHour) {
     const self = this;
     let idUser = $('#user-id').val();
+    $('#info-map').remove();
     this.deleteMarkers();
     this.directionsDisplay.setMap(null);
-    $('#info-map').empty();
     axios.post(this.BASE_URL + `/users/${idUser}/plans/doSearch`, {
         arriveHour,
         leftHour
@@ -74,8 +74,10 @@ class APIMaps {
     this.markers = [];
   }
 
-  myRoute(origin, destination, travelMode, selectDay, waypoints) {
-    this.deleteMarkers()
+  myRoute(origin, destination, travelMode, selectDay, waypoints,duration,resetTime) {
+    this.deleteMarkers();
+    (duration)?this.duration=duration:"";
+    (resetTime)?this.time=[]:"";
     if (waypoints) {
       var directionRequest = {
         origin: origin,
@@ -104,7 +106,6 @@ class APIMaps {
           // everything is ok
           this.directionsDisplay.setDirections(response);
           this.showTimeAndDistance(response);
-          console.log(response);
           if (travelMode !== "DRIVING") {
             (this.time.length) > 1 ? this.time = [] : "";
             this.time.push(response.routes[0].legs[0].duration.text);
@@ -192,17 +193,7 @@ class APIMaps {
     </form>
   `);
   }
-
-  showInfoTravelInMap(travelMode) {
-    $('#info-map').remove();
-    $('#art-map').append(`
-    <div id="info-map">
-    <strong>PLAN INFO:</strong>
-    Outward Journey: ${this.time[0]}
-    Return Journey: ${this.time[1]}
-    </div>`);
-  }
-
+  
   showTimeAndDistance(response) {
     $('#show-Time-Duration').empty();
     $('#show-Time-Duration').append(`
@@ -216,6 +207,25 @@ class APIMaps {
     </div>`);
   }
 
+  showInfoTravelInMap(travelMode) {
+    $('#info-map').remove();
+    // this.stringTimeToNumber();
+    $('#art-map').append(`
+    <div id="info-map" class="form-group col-sm-4 col-sm-offset-4">
+    <p><strong>PLAN INFO:</strong></p>
+    <p>Outward Journey: ${this.time[0]}</p>
+    <p>Return Journey: ${this.time[1]}</p>
+    <p>Plan Duration: ${this.duration} h</p>
+    </div>`);
+  }  
+
+  stringTimeToNumber(){
+    let thestring= this.time[0].replace(/[^0-9]/g,',');
+    let streetaddress= thestring.substr(0, thestring.indexOf(',')); 
+    thestring = thestring.substring(thestring.indexOf(",") + 1);
+    thestring= thestring.replace(/[^0-9]/g,'');
+    debugger
+  }  
 
 
 

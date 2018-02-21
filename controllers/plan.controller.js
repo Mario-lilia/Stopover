@@ -57,6 +57,8 @@ module.exports.doCreate = (req, res, next) => {
   const plan = new Plan(req.body);
   plan.createdBy = req.user._id;
   (plan.weather === "sunny") ? plan.weather = true: false;
+  plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
+  plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
   if (!req.body.title || !req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.latPosition || !req.body.lngPosition) {
     const title = req.body.title ? '' : 'Title is required';
     const description = req.body.description ? '' : 'description is required';
@@ -81,9 +83,16 @@ module.exports.doCreate = (req, res, next) => {
       },
       plan: plan
     });
+  } else if (plan.startTime >= plan.endTime) {
+    res.render('plans/new', {
+      error: {
+        startTime:"Start time has to beggin first to end time",
+        endTime:"End time is wrong"
+      },
+      plan: plan
+    });
   } else {
-    plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
-    plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
+
     plan.latPosition = Number(req.body.latPosition);
     plan.lngPosition = Number(req.body.lngPosition);
 
@@ -129,7 +138,8 @@ module.exports.doUpdate = (req, res, next) => {
   const id = req.params.id;
   plan._id = id;
   (plan.weather === "sunny") ? plan.weather = true: false;
-
+  plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
+  plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
   if (!req.body.description || !req.body.imgUrl || !req.body.price || !req.body.days || !req.body.startTime || !req.body.endTime || !req.body.latPosition || !req.body.lngPosition) {
     const description = req.body.description ? '' : 'description is required';
     const imgUrl = req.body.imgUrl ? '' : 'imgUrl is required';
@@ -156,9 +166,15 @@ module.exports.doUpdate = (req, res, next) => {
         });
       })
       .catch(error => next(error));
+  }  else if (plan.startTime >= plan.endTime) {
+    res.render('plans/new', {
+      error: {
+        startTime:"Start time has to beggin first to end time",
+        endTime:"End time is wrong"
+      },
+      plan: plan
+    });
   } else {
-    plan.startTime = Number(req.body.startTime.substring(0, req.body.startTime.indexOf(':')));
-    plan.endTime = Number(req.body.endTime.substring(0, req.body.endTime.indexOf(':')));
     Plan.findByIdAndUpdate(id, plan)
       .then(plan => {
         res.redirect(`/users/${id}/plans`);

@@ -4,17 +4,52 @@
       <div class="col-xs-12 col-sm-6 col-sm-offset-3">
         <h3>All Plans</a>:</h3>
         <% if (typeof(plans) != 'undefined') { %>
+            <%var i=0;%>
               <% plans.forEach(plan => {%>
                   <div class="panel panel-default">
                       <div class="panel-heading">
                           <p><a href="/users/<%=plan.createdBy%>"><strong>@<%=plan.createdBy%></strong></a> 
-                          <p><%= plan.title %></p>
+                          <p><strong><%= plan.title %></strong></p>
                           <img src="<%=plan.imgUrl%>" alt="" height="100px">
                           <p class="text-right">
-                              
+                              <!-- Large modal -->
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg<%=i%>">Info Plan</button>
                           </p>
                       </div>
                   </div>
+                  <div class="modal fade bs-example-modal-lg<%=i%>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel"><strong><%= plan.title %><strong></h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-sm-12"><p><%= plan.description %></p></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-5">
+                              <img src="<%= plan.imgUrl%>" width="100%" alt="">
+                            </div>
+                            <div class="col-sm-5">
+                              <p>TIMETABLE</p>
+                              <p>Days:</p>
+                              <p><%= plan.days %></p>
+                              <p>Open Hours:</p>
+                              <p><%= plan.startTime %> - <%= plan.endTime %></p>      
+                              <p>PRICE: <%= plan.price %>€</p>            
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%i=i+1;%>
               <% }); %>
           <% } %>
       </div>

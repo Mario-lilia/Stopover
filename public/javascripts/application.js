@@ -30,9 +30,6 @@ $(document).ready(() => {
       arriveHour.setHours(arriveHour.getHours() + 4);
       leftHour.setHours(leftHour.getHours() - 4);
     }
-    // console.log(arriveHour.getHours());
-    // console.log(leftHour.getHours());
-    // changeFormWhenClickSearchButton();
     if (arriveHour > leftHour) {
       alert("You dont have enough time to use that travel mode");
     } else {
@@ -49,6 +46,7 @@ $(document).ready(() => {
     let lng = Number($(div).children().children('.lng')[0].defaultValue);
     let startTime = Number($(div).children().children('.startTime')[0].defaultValue);
     let endTime = Number($(div).children().children('.endTime')[0].defaultValue);
+    let duration = endTime - startTime;
     let arriveHour = new Date($('#initHour').val());
     const numTerminal = $('#start').val();
     const destination = {
@@ -70,10 +68,10 @@ $(document).ready(() => {
         mapsAPI.myRoute(destination, terminalCoordinates(numTerminal), travelMode, Date.parse(selectDay));
       }, 200);
       setTimeout(() => {
-        mapsAPI.myRoute(terminalCoordinates(numTerminal), terminalCoordinates(numTerminal), "DRIVING", Date.parse(selectDay), waypoint);
-      }, 400);
+        mapsAPI.myRoute(terminalCoordinates(numTerminal), terminalCoordinates(numTerminal), "DRIVING", Date.parse(selectDay), waypoint,duration);
+      }, 600);
     } else {
-      mapsAPI.myRoute(terminalCoordinates(numTerminal), terminalCoordinates(numTerminal), "DRIVING", Date.parse(selectDay), waypoint);
+      mapsAPI.myRoute(terminalCoordinates(numTerminal), terminalCoordinates(numTerminal), "DRIVING", Date.parse(selectDay), waypoint, duration,true);
     }
     // console.log(time);
 
@@ -92,43 +90,6 @@ $(document).ready(() => {
     alert("hola");
   });
 });
-
-function changeFormWhenClickSearchButton(){
-  let initHour=$('#initHour').val();
-  let endHour=$('#endHour').val();
-  let start=$('#start').val();
-  let travelMode=$('#travelMode').val();
-  
-  // $('#show-plans').append(`
-  //   <form class="form-horizontal" id="form-plans">
-  //     <div class="form-group">
-  //       <h4><strong>${plan.title}<strong></h4>
-  //       <p>${plan.description}</p>
-  //     </div>
-  //     <div class="form-group">
-  //       <label class="col-sm-1 control-label">Start:</label>
-  //       <div class="col-sm-2">
-  //         <input type="text" class="form-control startTime" value="${plan.startTime}" readonly>
-  //       </div>
-  //       <label class="col-sm-1 control-label">End:</label>
-  //       <div class="col-sm-2">
-  //         <input type="text" class="form-control endTime" value="${plan.endTime}" readonly>
-  //       </div>
-  //       <label class="col-sm-1 control-label">Lat:</label>
-  //       <div class="col-sm-2">
-  //         <input type="text" class="form-control lat" value="${plan.latPosition}" readonly>
-  //       </div>
-  //       <label class="col-sm-1 control-label">Lng:</label>
-  //       <div class="col-sm-2">
-  //         <input type="text" class="form-control lng" value="${plan.lngPosition}" readonly>
-  //       </div>
-  //       <button class="btn btn-success btn-select-plan">Select plan</button>
-  //     </div>
-  //   </form>
-  // `);
-}
-
-
 
 function terminalCoordinates(numTerminal) {
   const terminalCoordinates = {

@@ -142,7 +142,7 @@
               <span class="input-group-addon">
                   <span class="glyphicon glyphicon-time"></span>
               </span>
-              <input type="text" class="form-control" name="startTime" value="<%= typeof plan != 'undefined' && plan.startTime ? plan.startTime : '' %>:00"  placeholder="00:00" readonly>
+              <input type="text" class="form-control" name="startTime" value="<%= typeof plan != 'undefined' && plan.startTime ? plan.startTime : '00' %>:00"  placeholder="00:00" readonly>
             </div>
             <% if (typeof(error) != 'undefined' && error.startTime) { %>
               <label class="control-label">
@@ -157,7 +157,7 @@
               <span class="input-group-addon">
                   <span class="glyphicon glyphicon-time"></span>
               </span>
-              <input type="text" class="form-control" name="endTime" value="<%= typeof plan != 'undefined' && plan.endTime ? plan.endTime : '' %>:00"  placeholder="14:00" readonly>
+              <input type="text" class="form-control" name="endTime" value="<%= typeof plan != 'undefined' && plan.endTime ? plan.endTime : '23' %>:00"  placeholder="14:00" readonly>
             </div>
             <% if (typeof(error) != 'undefined' && error.endTime) { %>
               <label class="control-label">
