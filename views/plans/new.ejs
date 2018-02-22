@@ -1,9 +1,7 @@
 <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-      </div>
-      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-        <div class="page-header">
+        <div class="page-header new-page-header">
           <h1>My plan:</h1>
             <%if (plan.isNew){%>
             <h4>Here you can create a plan</h4>
@@ -12,13 +10,13 @@
             <%}%>
         </div>
         <% if (plan.isNew) { %>
-          <h2>Creating a new plan</h2>
+          <h2 class="new-form-group">Creating a new plan</h2>
           <form action="/users/<%=session._id%>/plans/new" method="post">
         <% } else { %>
-          <h2>Updating a new plan</h2>
+          <h2 class="new-form-group">Updating a new plan</h2>
           <form action="/users/<%=session._id%>/plans/<%= plan._id %>/update" method="post">
         <% } %>
-          <div class="form-group <%= typeof error != 'undefined' && error.title ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.title ? 'has-error' : '' %>">
             <label class="control-label">Title of the plan:</label>
             <div class="input-group">
               <span class="input-group-addon">
@@ -36,7 +34,7 @@
               </label>
               <% } %>
           </div>
-          <div class="form-group <%= typeof error != 'undefined' && error.imgUrl ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.imgUrl ? 'has-error' : '' %>">
             <label class="control-label">Paste here the URL link address:</label>
             <div class="input-group">
               <span class="input-group-addon">
@@ -52,7 +50,7 @@
           </div>
           <img src="" id="imgUrl" alt="" height="100px">
           <br>
-          <div class="form-group <%= typeof error != 'undefined' && error.description ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.description ? 'has-error' : '' %>">
             <label class="control-label">Description:</label>
             <div class="input-group">
               <span class="input-group-addon">
@@ -66,7 +64,7 @@
               </label>
               <% } %>
           </div>
-          <div class="form-group <%= typeof error != 'undefined' && error.weather ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.weather ? 'has-error' : '' %>">
             <label for="start" class="control-label">Weather:</label>
             <div>
               <select class="form-control" name="weather">
@@ -80,7 +78,7 @@
               </label>
               <% } %>
           </div>
-          <div class="form-group <%= typeof error != 'undefined' && error.price ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.price ? 'has-error' : '' %>">
             <label class="control-label">Price of the plan:</label>
             <div class="input-group">
               <span class="input-group-addon">
@@ -95,7 +93,7 @@
               <% } %>
           </div>
           
-          <div class="form-group <%= typeof error != 'undefined' && error.days ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.days ? 'has-error' : '' %>">
             <label class="control-label">Days:</label>
             <div class="input-group">
               <span class="input-group-addon">
@@ -136,7 +134,7 @@
               </label>
               <% } %>
           </div>
-          <div class="form-group <%= typeof error != 'undefined' && error.startTime ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.startTime ? 'has-error' : '' %>">
             <label class="control-label">Start time:</label>
             <div class="input-group clockpicker">
               <span class="input-group-addon">
@@ -151,7 +149,7 @@
             <% } %>
           </div>
           
-          <div class="form-group <%= typeof error != 'undefined' && error.endTime ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.endTime ? 'has-error' : '' %>">
             <label class="control-label">End time:</label>
             <div class="input-group clockpicker">
               <span class="input-group-addon">
@@ -165,33 +163,36 @@
               </label>
             <% } %>
           </div>
-          <div class="form-group <%= typeof error != 'undefined' && error.latPosition ? 'has-error' : '' %>">
+          <div class="new-form-group form-group <%= typeof error != 'undefined' && error.latPosition ? 'has-error' : '' %>">
             <label class="control-label">Start position:</label>
             <div class="input-group">
               <span class="input-group-addon">
                 <i class="fa fa-envelope"></i>
               </span>
-              <input type="text" value="<%= typeof plan != 'undefined' && plan.latPosition ? plan.latPosition : '' %>" name="latPosition" class="form-control" placeholder="Start Position {lat: 40.468686, lng: -3.569172}">
+              <input id="lat" type="text" value="<%= typeof plan != 'undefined' && plan.latPosition ? plan.latPosition : '' %>" name="latPosition" class="form-control" placeholder="Start Position {lat: 40.468686, lng: -3.569172}">
             </div>
             <% if (typeof(error) != 'undefined' && error.latPosition) { %>
               <label class="control-label">
                 <%= error.latPosition %>
               </label>
             <% } %>
-          </div>
-          <div class="form-group <%= typeof error != 'undefined' && error.lngPosition ? 'has-error' : '' %>">
+            <p></p>
             <label class="control-label">End position:</label>
             <div class="input-group">
               <span class="input-group-addon">
                 <i class="fa fa-envelope"></i>
               </span>
-              <input type="text" value="<%= typeof plan != 'undefined' && plan.lngPosition ? plan.lngPosition : '' %>" name="lngPosition" class="form-control" placeholder="End Position {lat: 40.468686, lng: -3.569172}">
+              <input id="lng" type="text" value="<%= typeof plan != 'undefined' && plan.lngPosition ? plan.lngPosition : '' %>" name="lngPosition" class="form-control" placeholder="End Position {lat: 40.468686, lng: -3.569172}">
             </div>
             <% if (typeof(error) != 'undefined' && error.lngPosition) { %>
               <label class="control-label">
                 <%= error.lngPosition %>
               </label>
               <% } %>
+              <p></p>
+              <p>Click on the button to open the map.</p>
+              
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Open Map</button>
           </div>
           <div class="form-actions">
             <br>
@@ -207,10 +208,33 @@
   </div>
   <br>
   <br>
+  <div>
+      <div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <div class="row" id="modal-map">
+                  <article id="art-map">
+                      <div id="map">
+                          
+                      </div>
+                  </article>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
   <%if (!plan.isNew){%>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      <div class="col-xs-12 col-sm-4 col-sm-offset-4 new-form-delete">
             <form action="/users/<%=session._id%>/plans/<%= plan._id %>/delete" method="post">
               <button type="submit" class="btn btn-block btn-danger">DELETE!!</button>
               <label class="control-label">Once you deleted it, you cannot get it back!</label>

@@ -2,7 +2,15 @@ const mapsAPI = new APIMaps("http://localhost:3000");
 // const handlerAPI = new APIHandler("http://localhost:3000");
 
 function startMap() {
-  mapsAPI.startMap();
+  let modal =$('#modal-map').val();
+  if(modal===""){
+    // alert("jola");
+    mapsAPI.startMap(true);
+  }else{
+    // alert("Adios");
+    mapsAPI.startMap(false);
+    
+  }  
 }
 
 $(document).ready(() => {
@@ -73,8 +81,6 @@ $(document).ready(() => {
     } else {
       mapsAPI.myRoute(terminalCoordinates(numTerminal), terminalCoordinates(numTerminal), "DRIVING", Date.parse(selectDay), waypoint, duration,true);
     }
-    // console.log(time);
-
     var rect = div.getBoundingClientRect();
     var i = rect.bottom;
     var int = setInterval(function () {
