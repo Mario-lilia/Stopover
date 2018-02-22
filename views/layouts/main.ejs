@@ -29,8 +29,7 @@
 
 <body>
  
-  <nav class="navbar navbar-default navbar-fixed-top" >
-    <nav class="navbar navbar-default navbar-inverse">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" >
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -41,10 +40,8 @@
         </button>
         <a class="navbar-brand" href="/">
           <img alt="Brand" height="35px" src="https://lh3.ggpht.com/o-UfAXzPTYATMDtS8Jv2fN4Hp_xX_8B94aPaQeeCvKedp4CMfib-eZl_CCalIBRX31o=w300">
-        </a>
-        
-      </div>
-  
+        </a>        
+      </div> 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <% if (typeof(session.email) !== 'undefined') { %>
@@ -52,23 +49,15 @@
           <li> <a href="/">Home</a></li> 
           <li><a href="/users/profile">Profile</a></li>
         </ul>
-
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/auth/logout">Logout</a></li>
-         </ul>  
-         
-         <%}else{ %>
-          <ul class="nav navbar-nav">
+        </ul>           
+        <%}else{ %>
+        <ul class="nav navbar-nav">
           <li><a href="/auth/login">Login</a></li>
-          <li><a href="/auth/signup">Signup</a></li>
-         
-        </ul>
-       
-        
-              <%}%>
-            
-          
-        
+          <li><a href="/auth/signup">Signup</a></li>         
+        </ul>   
+        <%}%>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
