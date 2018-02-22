@@ -38,13 +38,13 @@ a {
 }
 
 .index {
-  font-family: fantasy;
-  color:rgb(233, 20, 151);
-  font-size: 120px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:rgb(14, 1, 9);
   font-style: oblique;
-  font-weight: 900;
   text-align: center;
   margin-top: 60px;
+  display: inline;
+  
   
   }
   #map {
@@ -127,3 +127,62 @@ margin-top: 10px;
   }
   .new-form-delete button{
   }
+
+ .myplan{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  .myplan>img{
+    width: 400px;
+    height: 400px;
+   
+  }
+  .contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .manita{
+    display: inline;
+    text-align: left;
+  }
+  .texto{
+    display: inline-block;
+  }
+  .title{
+    margin-left: 250px;
+   }
+
+  .pie {
+    background: rgb(14, 1, 9);
+    height: 500px;
+    color: seashell;
+    text-align: center;
+    font-size: 17px;
+    
+  }
+
+  .mypie{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .foto{
+      background-image: url("https://www.minveedu.com/images/icon_signup_dude.png");
+      height: 300px;
+      color:white;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: auto;
+
+    }
+  .sellos{
+    background-image: url("https://www.orbitz.com/blog/wp-content/uploads/2016/11/Passport-stamps_how-to-book-a-stopover.jpg");
+    height: 300;
+
+  }
+
+    

@@ -25,7 +25,7 @@ module.exports.update = (req, res, next) => {
 module.exports.doUpdate = (req, res, next) => {
 let updateImage = {};
 if(req.file) {
-    updateImage['imgUrl'] = `./avatar/${req.file.filename}`;
+    updateImage['imgUrl'] = `/avatar/${req.file.filename}`;
 }
 let update = Object.assign({}, req.body, updateImage)
 const {_id} = res.locals.session;
