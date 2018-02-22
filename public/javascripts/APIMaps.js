@@ -2,7 +2,7 @@ class APIMaps {
   constructor(baseUrl) {
     this.BASE_URL = baseUrl;
     this.map;
-    this.currentMarker;
+    this.currentMarker="";
     this.directionsService;
     this.directionsDisplay;
     this.time = [];
@@ -10,7 +10,7 @@ class APIMaps {
     this.labelIndex = 0;
     this.markers = [];
   }
-  startMap() {
+  startMap(isInModal) {
     this.map = new google.maps.Map(
       document.getElementById('map'), {
         zoom: 11,
@@ -20,10 +20,25 @@ class APIMaps {
         }
       }
     );
+    if(isInModal){
+      this.getPosition(this.map,this.currentMarker);
+    }
     this.directionsService = new google.maps.DirectionsService;
     this.directionsDisplay = new google.maps.DirectionsRenderer;
   }
-
+  getPosition(map, currentMarker) {
+    google.maps.event.addListener(map, "click", function (e) {
+      // currentMarker.setMap(null);
+      currentMarker = new google.maps.Marker({
+        position: e.latLng,
+        map: map,
+        title: "I'm here"
+      });
+      $('#lat').val(e.latLng.lat);
+      $('#lng').val(e.latLng.lng);
+      $('#modal').modal('toggle');
+    });
+  }
   getDoSearch(arriveHour, leftHour) {
     const self = this;
     let idUser = $('#user-id').val();
@@ -222,8 +237,7 @@ class APIMaps {
     let thestring= this.time[0].replace(/[^0-9]/g,',');
     let streetaddress= thestring.substr(0, thestring.indexOf(',')); 
     thestring = thestring.substring(thestring.indexOf(",") + 1);
-    thestring= thestring.replace(/[^0-9]/g,'');
-    debugger
+    thestring= thestring.replace(/[^0-9]/g,'')
   }  
 
 
