@@ -2,13 +2,17 @@
   <form class="form-horizontal">
     <div class="form-group" id="plans">
       <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-        <h3>All Plans</a>:</h3>
+        <div id="plans-descriptions">
+          <h2><strong>All the Plans:</strong></h2>
+          <h3>Here you can see all plans that we got in our database.</h3>
+          <p>Scroll down for a deep search and if you want create a plan just do click <a href="/users/<%=session._id%>/plans/new">HERE!</a></p>
+        </div>
         <% if (typeof(plans) != 'undefined') { %>
             <%var i=0;%>
               <% plans.forEach(plan => {%>
                   <div class="panel panel-default">
                       <div class="panel-heading">
-                          <p><a href="/users/<%=plan.createdBy%>"><strong>@<%=plan.createdBy%></strong></a> 
+                          <p><strong>Created by:</strong><a href="/users/<%=plan.createdBy%>"><strong>@<%=plan.createdBy%></strong></a> 
                           <p><strong><%= plan.title %></strong></p>
                           <img src="<%=plan.imgUrl%>" alt="" height="100px">
                           <p class="text-right">

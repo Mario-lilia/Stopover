@@ -73,8 +73,6 @@ $(document).ready(() => {
     } else {
       mapsAPI.myRoute(terminalCoordinates(numTerminal), terminalCoordinates(numTerminal), "DRIVING", Date.parse(selectDay), waypoint, duration,true);
     }
-    // console.log(time);
-
     var rect = div.getBoundingClientRect();
     var i = rect.bottom;
     var int = setInterval(function () {

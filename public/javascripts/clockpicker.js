@@ -294,7 +294,6 @@
 					self.setHand(x, y);
 				}
 				if (self.currentView === 'hours') {
-					// console.log(self);
 					self.minutesView.addClass('clockpicker-dial-out');
 						setTimeout(function(){
 							self.done();

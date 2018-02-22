@@ -37,7 +37,6 @@ class APIMaps {
       .then(function (response) {
         $('#show-plans').empty();
         if (response.data.plans) {
-          console.log(response.data.plans);
           let i = 0;
           response.data.plans.forEach(plan => {
             self.showMarkerInMap(plan.latPosition, plan.lngPosition, plan.title);
@@ -211,11 +210,11 @@ class APIMaps {
     $('#info-map').remove();
     // this.stringTimeToNumber();
     $('#art-map').append(`
-    <div id="info-map" class="form-group col-sm-4 col-sm-offset-4">
-    <p><strong>PLAN INFO:</strong></p>
-    <p>Outward Journey: ${this.time[0]}</p>
-    <p>Return Journey: ${this.time[1]}</p>
-    <p>Plan Duration: ${this.duration} h</p>
+    <div id="info-map" class="form-group col-sm-12">
+    <h4><strong>PLAN INFO:</strong></h4>
+    <h4><strong>Outward Journey: ${this.time[0]}</strong></h4>
+    <h4><strong>Return Journey: ${this.time[1]}</strong></h4>
+    <h4><strong>Plan Duration: ${this.duration} h</strong></h4>
     </div>`);
   }  
 

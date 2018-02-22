@@ -210,7 +210,6 @@ module.exports.doSearch = (req, res, next) => {
     if (horaLlegada < horaSalida) {
       //Same day
       let dayOfWeek = getNameDayOfTheWeek(arriveHourDate.getUTCDay());
-      console.log(dayOfWeek);
       Plan.find({
           $and: [{
             days: {
