@@ -36,7 +36,7 @@ class APIMaps {
       });
       $('#lat').val(e.latLng.lat);
       $('#lng').val(e.latLng.lng);
-      $('#modal').modal('toggle');
+      $(' #modal').modal('toggle');
     });
   }
   getDoSearch(arriveHour, leftHour) {
