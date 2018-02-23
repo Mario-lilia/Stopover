@@ -1,7 +1,8 @@
 body {
-  margin-top: 50px;
+
+  padding-top: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("../images/fondo.png");
+  background-image: url("../images/fondo.png"); 
   background-repeat: repeat;
 }
 
@@ -134,14 +135,16 @@ margin-top: 10px;
   }
 
  .myplan{
-  display: flex;
+   
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
   .myplan>img{
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
+    margin-top: 60px;
    
   }
   .contenedor {
@@ -156,16 +159,25 @@ margin-top: 10px;
   .texto{
     display: inline-block;
   }
+  .margen{
+    
+    margin-bottom: 70px;
+    color: #DAEFF6;
+  }
   .title{
     margin-left: 250px;
+    margin-top: 30px;
+    font-size: 50px;
    }
 
   .pie {
-    background: rgb(14, 1, 9);
-    height: 500px;
-    color: seashell;
+    /* background: rgb(14, 1, 9); */
+    height: 250px;
+    color: black;
     text-align: center;
-    font-size: 17px;
+    font-size: 20px;
+    
+    margin-top: 130px;
     
   }
 
@@ -175,19 +187,36 @@ margin-top: 10px;
       justify-content: center;
   }
   
+  .signup{
+      /* background:url("https://www.minveedu.com/images/icon_signup_dude.png"); 
+      height: 300px; */
+      color:black;
+      /* background-repeat: no-repeat; */
+      text-align: center;
+      background-size: auto;
+      
+
+    }
   .foto{
-      background-image: url("https://www.minveedu.com/images/icon_signup_dude.png");
+      background:url("https://www.minveedu.com/images/icon_signup_dude.png"); 
       height: 300px;
-      color:white;
+      /* color:white; */
       background-repeat: no-repeat;
       background-position: center;
       background-size: auto;
+      
+      
 
-    }
+
+  }
   .sellos{
-    background-image: url("https://www.orbitz.com/blog/wp-content/uploads/2016/11/Passport-stamps_how-to-book-a-stopover.jpg");
-    height: 300;
-
+    /* background-image: url("https://images.vexels.com/media/users/17482/106523/preview2/d1f4a57059de31a821fd0b00df683d05-vector-de-icono-de-viaje-viajes.png"); */
+    background-position: right;
+  }
+  .titulo{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 300px;
+    color: white;
   }
 
     

@@ -1,14 +1,50 @@
-<div class="col-sm-6 col-md-4">
-   <h3 class="parrafoColor">Welcome your profile</h3>
-   <p class="parrafoColor">The best aplication in the word. Hola
-      <%=session.name%> seguimos probando ........</p>
-   <p>
-      <a href="/users/<%=session.id%>/update" class="btn btn-primary" role="button">Update</a>
-   </p>
-</div>
+
 
 <section>
-   <a href="/users/<%=session._id%>/plans" class="btn btn-danger">My plans</a>
-   <a href="/users/<%=session._id%>/plans/showall" class="btn btn-info">All plans</a>
-   <a href="/users/<%=session._id%>/plans/search" class="btn btn-success">Search plan</a>
+
+        <div class="hero ">
+                <h1>Profile of: </h1>
+                <h1>
+                        <%=session.email%>
+                </h1>
+        </div>
+        <div class="content-wrapper">
+                        <div class="content-wrapper-div hero-title-div plans-descriptions">
+                                <h1 id="hero-title"><strong>Personal details</strong></h1>
+                               <h5>Name: <%=session.name%> </h5> 
+                               <h5>Country: <%=session.country%> </h5> 
+                        </div>
+                        <div class="content-wrapper-div">
+                                <a href="/users/<%=session._id%>/plans" class="btn-profile">My plans</a>
+                                <a href="/users/<%=session._id%>/plans/showall" class="btn-profile">All plans</a>
+                                <a href="/users/<%=session._id%>/plans/search" class="btn-profile">Search plan</a>
+                        </div>
+                        <div class="content-wrapper-div">
+                                <a href="/users/<%=session.id%>/update" class="btn btn-primary" role="button">Update</a>
+                        </div>
+        </div>
 </section>
+
+<script>
+        $(document).ready(function () {
+                $(window).on('scroll', function () {
+                        if ($(window).scrollTop() < 1000) {
+                                $('.hero').css('background-size', 130 + parseInt($(
+                                        window).scrollTop() / 5) + '%');
+                                $('.hero h1').css('top', 50 + ($(window).scrollTop() *
+                                        .1) + '%');
+                                $('.hero h1').css('opacity', 1 - ($(window).scrollTop() *
+                                        .003));
+                        }
+
+                        if ($(window).scrollTop() >= $('.content-wrapper').offset().top -
+                                300) {
+                                $('.nav-bg').removeClass('bg-hidden');
+                                $('.nav-bg').addClass('bg-visible');
+                        } else {
+                                $('.nav-bg').removeClass('bg-visible');
+                                $('.nav-bg').addClass('bg-hidden');
+                        }
+                });
+        });
+</script>
