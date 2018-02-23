@@ -20,7 +20,7 @@
             <label class="control-label">Title of the plan:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-comment-alt"></i>
               </span>
               <%if (plan.isNew){%>
                 <input type="text" value="<%= typeof plan != 'undefined' && plan.title ? plan.title : '' %>" name="title" class="form-control" placeholder="Name">
@@ -38,7 +38,7 @@
             <label class="control-label">Paste here the URL link address:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-image"></i>
               </span>
               <input type="text" value="<%= typeof plan != 'undefined' && plan.imgUrl ? plan.imgUrl : '' %>" id="inpImgUrl" name="imgUrl" class="form-control" placeholder="Image URL">
             </div>
@@ -54,7 +54,7 @@
             <label class="control-label">Description:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-list"></i>
               </span>
               <textarea type="text" cols="30" rows="10"name="description" class="form-control" placeholder="Description"><%= typeof plan != 'undefined' && plan.description ? plan.description : '' %></textarea>
             </div>
@@ -66,7 +66,10 @@
           </div>
           <div class="new-form-group form-group <%= typeof error != 'undefined' && error.weather ? 'has-error' : '' %>">
             <label for="start" class="control-label">Weather:</label>
-            <div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-leaf"></i>
+              </span>
               <select class="form-control" name="weather">
                 <option value="true">Sunny</option>
                 <option value="false">Rainy</option>
@@ -82,7 +85,7 @@
             <label class="control-label">Price of the plan:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-money-bill-alt"></i>
               </span>
               <input type="text" value="<%= typeof plan != 'undefined' && plan.price ? plan.price : '' %>" name="price" class="form-control" placeholder="Price">
             </div>
@@ -97,7 +100,7 @@
             <label class="control-label">Days:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-table"></i>
               </span>
               <div class="form-control" >
                 <label class="control-label">Monday:</label>
@@ -164,10 +167,10 @@
             <% } %>
           </div>
           <div class="new-form-group form-group <%= typeof error != 'undefined' && error.latPosition ? 'has-error' : '' %>">
-            <label class="control-label">Start position:</label>
+            <label class="control-label">Latitude:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-universal-access"></i>
               </span>
               <input id="lat" type="text" value="<%= typeof plan != 'undefined' && plan.latPosition ? plan.latPosition : '' %>" name="latPosition" class="form-control" placeholder="Start Position {lat: 40.468686, lng: -3.569172}">
             </div>
@@ -177,7 +180,7 @@
               </label>
             <% } %>
             <p></p>
-            <label class="control-label">End position:</label>
+            <label class="control-universal-access">Longitude:</label>
             <div class="input-group">
               <span class="input-group-addon">
                 <i class="fa fa-envelope"></i>
@@ -190,9 +193,9 @@
               </label>
               <% } %>
               <p></p>
-              <p>Click on the button to open the map.</p>
+              <p>You dont know the position? Click on the button to search in a map.</p>
               
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Open Map</button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg">Open Map</button>
           </div>
           <div class="form-actions">
             <br>
@@ -214,6 +217,8 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><strong>Find & Click<strong></h4>
+                <h5 class="modal-title"><strong>Find where the plan is and just click to get the position.<strong></h5>
               </div>
               <div class="modal-body">
                 <div class="row" id="modal-map">
