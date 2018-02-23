@@ -86,30 +86,44 @@ module.exports.doCreate = (req, res, next) => {
   } else if (plan.startTime >= plan.endTime) {
     res.render('plans/new', {
       error: {
-        startTime:"Start time has to beggin first to end time",
-        endTime:"End time is wrong"
+        startTime: "Start time has to beggin first to end time",
+        endTime: "End time is wrong"
       },
       plan: plan
     });
   } else {
-
     plan.latPosition = Number(req.body.latPosition);
     plan.lngPosition = Number(req.body.lngPosition);
-
-    plan.save()
-      .then(() => {
-        res.redirect(`/users/${req.user._id}/plans`);
-      }).catch(error => {
-        if (error instanceof mongoose.Error.ValidationError) {
-          res.render('plans/new', {
-            plan: plan,
-            error: error.errors
-          });
-        } else {
-          next(error);
-        }
-      })
-      .catch(error => next(error));
+    console.log("AAAAAA");
+    
+    Plan.find({title:plan.title})
+    .then((otherPlan)=>{
+      if(otherPlan){
+        console.log("BBBBBBB");
+        
+        res.render('plans/new', {
+          plan:plan,
+          error: {title:"That title already exists"}
+        });
+      }else{
+        plan.save()
+          .then(() => {
+            console.log("CCCCCCCCCCCCC");
+            
+            res.redirect(`/users/${req.user._id}/plans`);
+          }).catch(error => {
+            if (error instanceof mongoose.Error.ValidationError) {
+              res.render('plans/new', {
+                plan: plan,
+                error: error.errors
+              });
+            } else {
+              next(error);
+            }
+          })
+          .catch(error => next(error));
+      }
+    });
   }
 };
 
@@ -166,14 +180,18 @@ module.exports.doUpdate = (req, res, next) => {
         });
       })
       .catch(error => next(error));
-  }  else if (plan.startTime >= plan.endTime) {
-    res.render('plans/new', {
-      error: {
-        startTime:"Start time has to beggin first to end time",
-        endTime:"End time is wrong"
-      },
-      plan: plan
-    });
+  } else if (plan.startTime >= plan.endTime) {
+    Plan.findById(id)
+      .then((planB) => {
+        res.render('plans/new', {
+          error: {
+            startTime: "Start time has to beggin first to end time",
+            endTime: "End time is wrong"
+          },
+          plan: planB
+        });
+      })
+      .catch(error => next(error));
   } else {
     Plan.findByIdAndUpdate(id, plan)
       .then(plan => {
@@ -187,11 +205,11 @@ module.exports.search = (req, res, next) => {
   const {
     idUser
   } = req.params;
-  const idParamsUser = req.user._id;
-  if (String(idParamsUser) === String(idUser)) {
+  const idReqUser = req.user._id;
+  if (String(idReqUser) === String(idUser)) {
     res.render('plans/search')
   } else {
-    res.redirect(`/users/${id}`);
+    res.redirect(`/users/${idReqUser}`);
   }
 }
 
