@@ -1,9 +1,11 @@
-<iframe src="https://www.youtube.com/embed/L3V7LKYPIUQ?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen="" style="
+<iframe id="myVideo"src="https://www.youtube.com/embed/sGQtFwsmU-M?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen="" style="
   position: absolute;
   z-index:  -10;
   width:  100vw;
   height:  100vh;">
 </iframe>
+
+
 <div style="
     position: absolute;
     width: 100vw;
@@ -42,7 +44,7 @@
             <i class="far fa-hand-point-right fa-3x"></i>
           </div>
           <div class="texto">
-            <h4 id="works-list-1">lalalala</h4>
+            <h4 id="works-list-1">Enjoy</h4>
             <p id="works-list-sub-1">
               <p> You want to enjoy every minute of your trip? </p>
           </div>
@@ -53,7 +55,7 @@
             <i class="far fa-hand-point-right fa-3x"></i>
           </div>
           <div class="texto">
-            <h4 id="works-list-1">papapapap</h4>
+            <h4 id="works-list-1">Explore</h4>
             <p> Explore a range of plans to do on your scale</p>
           </div>
         </div>
@@ -64,7 +66,7 @@
             <i class="far fa-hand-point-right fa-3x"></i>
           </div>
           <div class="texto">
-            <h4 id="works-list-1">nananaanan</h4>
+            <h4 id="works-list-1">Register</h4>
             <p> Register now and enjoy the best plans in Madrid</p>
           </div>
         </div>
@@ -81,12 +83,12 @@
   </div>
 </div>
 
-<div class="container-fluid pie">
+<div class="container-fluid pie ">
   <div class="row ">
 
-    <div class="col-md-6 signup foto">
+    <div class="col-sm-6 signup foto ">
 
-      <p>
+      <p class="foto1">
         If you are interested in
         <br> a plan in Madrid, this
         <br> is your site. register
@@ -98,18 +100,27 @@
 
     </div>
 
-    <div class="col-md-6">
-      <p>
-        The offer of free leisure (or at reasonable prices)<br>
-         in Madrid is impressive. However, the information <br>
-         is very scattered and not always easy to find.<br>
-         Stopover was born at the beginning of 2018 with the <br>
-         intention of answering some of the questions we ask<br>
-          each other whenever we make travel scales.<br>
-      </p>
+    <div class="col-sm-6 alert-info box">
+      <div>
+        <p>
+          The offer of free leisure (or at reasonable prices)<br>
+           in Madrid is impressive. However, the information <br>
+           is very scattered and not always easy to find.<br>
+           Stopover was born at the beginning of 2018 with the <br>
+           intention of answering some of the questions we ask<br>
+            each other whenever we make travel scales.<br>
+        </p>
+
+      </div>
     </div>
 
 
 
   </div>
 </div>
+<script>
+  $(document).ready(() => {
+    var myVideo =  iframe.getElementById('myVideo'); 
+  myVideo.mute();
+  });
+  </script>

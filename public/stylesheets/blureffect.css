@@ -20,10 +20,10 @@
 @keyframes move {
   0% {
     text-shadow:
-      4px -4px 0 hsla(0, 100%, 50%, 1), 
-      3px -3px 0 hsla(0, 100%, 50%, 1), 
-      2px -2px 0 hsla(0, 100%, 50%, 1), 
-      1px -1px 0 hsla(0, 100%, 50%, 1),
+      4px -4px 0 #009fd7, 
+      3px -3px 0 #009fd7, 
+      2px -2px 0 #009fd7, 
+      1px -1px 0 #009fd7,
       -4px 4px 0 hsla(180, 100%, 50%, 1), 
       -3px 3px 0 hsla(180, 100%, 50%, 1), 
       -2px 2px 0 hsla(180, 100%, 50%, 1), 
@@ -36,18 +36,18 @@
       -3px -3px 0 hsla(180, 100%, 50%, 1), 
       -2px -2px 0 hsla(180, 100%, 50%, 1), 
       -1px -1px 0 hsla(180, 100%, 50%, 1),
-      4px 4px 0 hsla(0, 100%, 50%, 1), 
-      3px 3px 0 hsla(0, 100%, 50%, 1), 
-      2px 2px 0 hsla(0, 100%, 50%, 1), 
-      1px 1px 0 hsla(0, 100%, 50%, 1)      
+      4px 4px 0 #009fd7, 
+      3px 3px 0 #009fd7, 
+      2px 2px 0 #009fd7, 
+      1px 1px 0 #009fd7      
     ;
   }
   50% {
     text-shadow:
-      -4px 4px 0 hsla(0, 100%, 50%, 1), 
-      -3px 3px 0 hsla(0, 100%, 50%, 1), 
-      -2px 2px 0 hsla(0, 100%, 50%, 1), 
-      -1px 1px 0 hsla(0, 100%, 50%, 1),
+      -4px 4px 0 #009fd7, 
+      -3px 3px 0 #009fd7, 
+      -2px 2px 0 #009fd7, 
+      -1px 1px 0 #009fd7,
       4px -4px 0 hsla(180, 100%, 50%, 1), 
       3px -3px 0 hsla(180, 100%, 50%, 1), 
       2px -2px 0 hsla(180, 100%, 50%, 1), 
@@ -60,18 +60,18 @@
       3px 3px 0 hsla(180, 100%, 50%, 1), 
       2px 2px 0 hsla(180, 100%, 50%, 1), 
       1px 1px 0 hsla(180, 100%, 50%, 1),
-      -4px -4px 0 hsla(0, 100%, 50%, 1), 
-      -3px -3px 0 hsla(0, 100%, 50%, 1), 
-      -2px -2px 0 hsla(0, 100%, 50%, 1), 
-      -1px -1px 0 hsla(0, 100%, 50%, 1)      
+      -4px -4px 0 #009fd7, 
+      -3px -3px 0 #009fd7, 
+      -2px -2px 0 #009fd7, 
+      -1px -1px 0 #009fd7      
     ;
   }
   100% {
     text-shadow:
-      4px -4px 0 hsla(0, 100%, 50%, 1), 
-      3px -3px 0 hsla(0, 100%, 50%, 1), 
-      2px -2px 0 hsla(0, 100%, 50%, 1), 
-      1px -1px 0 hsla(0, 100%, 50%, 1),
+      4px -4px 0 #009fd7, 
+      3px -3px 0 #009fd7, 
+      2px -2px 0 #009fd7, 
+      1px -1px 0 #009fd7,
       -4px 4px 0 hsla(180, 100%, 50%, 1), 
       -3px 3px 0 hsla(180, 100%, 50%, 1), 
       -2px 2px 0 hsla(180, 100%, 50%, 1), 
@@ -100,9 +100,9 @@
     /* position: relative; */
     text-align: center;
     width: 100%;
-    height: 500px;
+    height: 800px;
     background: rgb(50,50,50);
-    background: url(https://3.bp.blogspot.com/-6umJVXK-u5I/VGPidzeFMTI/AAAAAAAAAUE/UPo-0uo33Cs/s1600/IMG_1253.JPG) no-repeat 50% 50% fixed;
+    background: url(http://farm6.staticflickr.com/5051/5490525346_65d00de8c4_b.jpg) no-repeat 50% 50% fixed;
     background-size: 130%;
     overflow: hidden;
    }
@@ -113,7 +113,7 @@
     /* position: absolute;
     top: 50%;
     left: 0; */
-    color: violet;
+    color: #CAE3F1;
     width: 100%;
     padding: 10px;
     font-size: 80px;
@@ -129,7 +129,7 @@
    
    .content-wrapper h1 {
     margin: 0;
-    color: rgb(220, 120, 0);
+    color: rgb(17, 11, 4);
    }
    
    .content-wrapper p {
@@ -137,11 +137,11 @@
     text-indent: 1.5em;
    }
    .btn-profile{
-       background-color: yellow;
+       background-color: rgb(70, 70, 71);
        padding: 80px;
        border-radius: 50%;
        border: 1px solid black;
-       color: black;
+       color: #CAE3F1;
        width: 150px;
        height: 150px;
        font-size: 30px;
@@ -154,12 +154,22 @@
    }
 
    .hero-title-div {
+       margin-left: 300px;
        margin-bottom: 150px;
-       background-color: rgb(228, 228, 228);
+       background-color:#CAE3F1;
        width: 500px;
        text-align: center;
        padding: 20px;
        border-radius: 20px;
-       margin: 0 auto;
+       
+   }
+   .btn-update {
+     padding: 50px;
+     border-radius: 50%;
+     background-color: #CCE4F2;
+   }
+   .btn-delete {
+   margin-top: 40px;
+   padding: 50px;
    }
   
