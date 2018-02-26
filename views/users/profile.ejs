@@ -7,7 +7,7 @@
                 </h1>
         </div>
         <div class="content-wrapper">
-                        <div class="content-wrapper-div hero-title-div plans-descriptions">
+                        <div class="content-wrapper-div hero-title-div alert-info">
                                 <h1 id="hero-title"><strong>Personal details</strong></h1>
                                <h5>Name: <%=session.name%> </h5> 
                                <h5>Country: <%=session.country%> </h5> 
@@ -17,8 +17,8 @@
                                 <a href="/users/<%=session._id%>/plans/showall" class="btn-profile">All plans</a>
                                 <a href="/users/<%=session._id%>/plans/search" class="btn-profile">Search plan</a>
                         </div>
-                        <div class="content-wrapper-div">
-                                <a href="/users/<%=session.id%>/update" class="btn btn-primary" role="button">Update</a>
+                        <div class="content-wrapper-div ">
+                                <a href="/users/<%=session.id%>/update" class="btn btn-primary btn-lg btn-update" role="button">Update</a>
                         </div>
         </div>
 </section>

@@ -98,7 +98,7 @@ module.exports.doCreate = (req, res, next) => {
     
     Plan.find({title:plan.title})
     .then((otherPlan)=>{
-      if(otherPlan){
+      if(otherPlan.length>1){
         console.log("BBBBBBB");
         
         res.render('plans/new', {
